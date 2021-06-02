@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] GameObject m_blasterPrefab;
 	//ターゲット
 	[SerializeField] GameObject m_target;
+	//ターゲット2
+	[SerializeField] GameObject m_target2;
 	//移動速度
 	[SerializeField] float MOVE_SPEED;
 	//ザッパーの発射速度
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float MOVE_LIMIT_BACK;
 	//ブラスターの発射インターバル
 	[SerializeField] float BLASTER_SHOT_INTERVAL;
+	//ザッパーの発射インターバル
+	[SerializeField] float ZAPPER_SHOT_INTERVAL;
 	//爆発のパーティクル
 	[SerializeField] GameObject m_explosion;
 
@@ -44,6 +48,8 @@ public class PlayerController : MonoBehaviour
 	Vector3 m_pos;
 	//ブラスターの発射タイマー
 	float m_blasterShotTimer;
+	//ザッパーの発射タイマー
+	float m_zapperShotTimer;
 
 	// Start is called before the first frame update
 	void Start()
@@ -88,34 +94,73 @@ public class PlayerController : MonoBehaviour
 	//ザッパー発射
 	void ZapperShot()
 	{
-		if(Input.GetKeyDown(KeyCode.Z))
+		//単発
+		if (Input.GetKeyDown(KeyCode.Z))
 		{
 			//ザッパー(右)を生成
-			GameObject zapper1 = (GameObject)Instantiate(m_zapperPrefab,m_zapperMuzzleRight.position,Quaternion.identity);
+			GameObject zapper1 = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleRight.position, Quaternion.identity);
 			//ザッパー(左)を生成
 			GameObject zapper2 = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleLeft.position, Quaternion.identity);
 			//前方に力を加える
 			zapper1.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
 			zapper2.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
 		}
+
+		//連射
+		if (Input.GetKey(KeyCode.LeftShift) && m_zapperShotTimer <= 0.0f)
+		{
+			//ザッパー(右)を生成
+			GameObject zapper3 = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleRight.position, Quaternion.identity);
+			//ザッパー(左)を生成
+			GameObject zapper4 = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleLeft.position, Quaternion.identity);
+			//前方に力を加える
+			zapper3.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+			zapper4.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+
+			m_zapperShotTimer = ZAPPER_SHOT_INTERVAL;
+
+		}
+		m_zapperShotTimer -= Time.deltaTime;
+		if (m_zapperShotTimer <= 0.0f) m_zapperShotTimer = 0.0f;
+
 	}
 
 	//ブラスター発射
 	void BlasterShot()
 	{
-		if (Input.GetKeyDown(KeyCode.X) && m_blasterShotTimer == 0.0f)
+		GameObject blasterBullet = GameObject.Find("BlasterPrefab(Clone)");
+		//Debug.Log(blasterBullet);
+
+		//X入力かつ他のブラスター弾がなければ発射　
+		if (Input.GetKey(KeyCode.X) && blasterBullet == null)
 		{
 			//ブラスターを生成
 			GameObject blaster = (GameObject)Instantiate(m_blasterPrefab, m_blasterMuzzle.position, Quaternion.identity);
-			//前方に力を加える
-			blaster.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, -BLASTER_SHOT_SPEED, BLASTER_SHOT_SPEED), ForceMode.Impulse);
+			//前方下に力を加える
+			Vector3 vel = new Vector3(0.0f, -1.0f, 1.0f);
+			vel.Normalize();
+			blaster.GetComponent<Rigidbody>().AddForce(vel * BLASTER_SHOT_SPEED, ForceMode.Impulse);
 
-			m_blasterShotTimer = BLASTER_SHOT_INTERVAL;
+			//発射位置にターゲット2を置く
+			m_target2.transform.position = m_target.transform.position;
+
+			//m_blasterShotTimer = BLASTER_SHOT_INTERVAL;
+		}
+		else
+		{
+			//普段はターゲット2を非表示
+			m_target2.gameObject.SetActive(false);
 		}
 
-		m_blasterShotTimer -= Time.deltaTime;
-		if (m_blasterShotTimer <= 0.0f) m_blasterShotTimer = 0.0f;
+		if(blasterBullet != null)
+		{
+			//ブラスター弾があればターゲット2を表示
+			m_target2.gameObject.SetActive(true);
 
+		}
+
+		//m_blasterShotTimer -= Time.deltaTime;
+		//if (m_blasterShotTimer <= 0.0f) m_blasterShotTimer = 0.0f;
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -130,6 +175,15 @@ public class PlayerController : MonoBehaviour
 
 			//消滅
 			Destroy(gameObject);
+
+			//残機を1減らす
+			ShareData.Instance.life = ShareData.Instance.life - 1;
+			//残機数が0でなければプレイシーンをリロード
+			if (ShareData.Instance.life > 0)
+			{
+				FadeManager.FadeOut("PlayScene");
+			}
+
 		}
 	}
 
@@ -147,7 +201,11 @@ public class PlayerController : MonoBehaviour
 		{
 			//Debug.Log(ray.GetPoint(distance));
 			if(hit.collider.tag =="Plane")
-				m_target.transform.position = new Vector3(hit.point.x,hit.point.y +1.0f,hit.point.z);
+			{
+				m_target.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
+
+			}
+
 		}
 	}
 }

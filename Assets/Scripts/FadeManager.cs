@@ -35,7 +35,7 @@ public class FadeManager : MonoBehaviour
         if (fadeOutFlag == true)
         {
             //画像の透明度を増やす
-            alpha += 0.1f;
+            alpha += Time.deltaTime;
             if (alpha >= 1.0f)
             {
                 alpha = 1.0f;
@@ -48,7 +48,7 @@ public class FadeManager : MonoBehaviour
         else if(fadeInFlag == true)
         {
             //画像の透明度を減らす
-            alpha -= 0.1f;
+            alpha -= Time.deltaTime;
             if (alpha <= 0.0f)
             {
                 alpha = 0.0f;
@@ -66,12 +66,14 @@ public class FadeManager : MonoBehaviour
     //////////////////////////
     public static void FadeIn()
     {
-        if (fadeImage == null) Initialize();
+        if (fadeOutFlag == false && fadeInFlag == false)
+        {
+            if (fadeImage == null) Initialize();
 
-        //フェードアウトのフラグを立てる
-        alpha = 1.0f;
-        fadeInFlag = true;
-
+            //フェードアウトのフラグを立てる
+            alpha = 1.0f;
+            fadeInFlag = true;
+        }
     }
 
     ///////////////////////////
@@ -81,14 +83,18 @@ public class FadeManager : MonoBehaviour
     //////////////////////////
     public static void FadeOut(string nextSceneName)
     {
-        if (fadeImage == null) Initialize();
+        if (fadeOutFlag == false && fadeInFlag == false)
+        {
+            if (fadeImage == null) Initialize();
 
-        //フェードアウトのフラグを立てる
-        alpha = 0.0f;
-        fadeOutFlag = true;
+            //フェードアウトのフラグを立てる
+            alpha = 0.0f;
+            fadeOutFlag = true;
 
-        nextScene = nextSceneName;
+            nextScene = nextSceneName;
+        }
     }
+
 
     //初期化処理
     static void Initialize()
@@ -107,7 +113,7 @@ public class FadeManager : MonoBehaviour
         fadeImage.transform.SetParent(fadeCanvas.transform, false);
         fadeImage.rectTransform.anchoredPosition = Vector3.zero;
 
-        fadeImage.rectTransform.sizeDelta = new Vector2(1000, 1000);
+        fadeImage.rectTransform.sizeDelta = new Vector2(10000, 10000);
     }
 
 
