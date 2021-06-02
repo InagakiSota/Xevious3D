@@ -7,8 +7,6 @@ using UnityEngine;
 /// ブラスター：対地弾
 /// </summary>
 
-
-
 public class PlayerController : MonoBehaviour
 {
 	//ザッパーの銃口　右
@@ -21,22 +19,36 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] GameObject m_zapperPrefab;
 	//ブラスターのプレハブ
 	[SerializeField] GameObject m_blasterPrefab;
+	//ターゲット
+	[SerializeField] GameObject m_target;
 	//移動速度
 	[SerializeField] float MOVE_SPEED;
 	//ザッパーの発射速度
 	[SerializeField] float ZAPPER_SHOT_SPEED;
 	//ブラスターの発射速度
 	[SerializeField] float BLASTER_SHOT_SPEED;
+	//左右の移動限界値
+	[SerializeField] float MOVE_LIMIT_SIDE;
+	//前の移動限界値
+	[SerializeField] float MOVE_LIMIT_FRONT;
+	//後の移動限界値
+	[SerializeField] float MOVE_LIMIT_BACK;
+	//ブラスターの発射インターバル
+	[SerializeField] float BLASTER_SHOT_INTERVAL;
+	//爆発のパーティクル
+	[SerializeField] GameObject m_explosion;
 
 	//移動量
 	Vector3 m_vel;
 	//座標
 	Vector3 m_pos;
+	//ブラスターの発射タイマー
+	float m_blasterShotTimer;
+
 	// Start is called before the first frame update
 	void Start()
 	{
 		m_pos = this.transform.position;
-
 	}
 
 	// Update is called once per frame
@@ -49,13 +61,16 @@ public class PlayerController : MonoBehaviour
 		ZapperShot();
 		//ブラスターの発射
 		BlasterShot();
+
+		//Rayのテスト
+		Ray();
 	}
 
 	//移動処理
 	void Move()
 	{
 		//上下入力
-		m_vel.y = Input.GetAxis("Vertical");
+		m_vel.z = Input.GetAxis("Vertical");
 		//左右入力
 		m_vel.x = Input.GetAxis("Horizontal");
 		//正規化
@@ -63,8 +78,8 @@ public class PlayerController : MonoBehaviour
 		//移動量を座標に加算する
 		m_pos += m_vel * MOVE_SPEED * Time.deltaTime;
 		//クランプ関数を用いて、プレイヤーを画面内に収める
-		m_pos.x = Mathf.Clamp(m_pos.x, -7.0f, 7.0f);
-		m_pos.y = Mathf.Clamp(m_pos.y, -4.0f, 4.0f);
+		m_pos.x = Mathf.Clamp(m_pos.x, -MOVE_LIMIT_SIDE, MOVE_LIMIT_SIDE);
+		m_pos.z = Mathf.Clamp(m_pos.z, MOVE_LIMIT_BACK, MOVE_LIMIT_FRONT);
 
 		this.transform.position = m_pos;
 
@@ -88,13 +103,51 @@ public class PlayerController : MonoBehaviour
 	//ブラスター発射
 	void BlasterShot()
 	{
-		if (Input.GetKeyDown(KeyCode.X))
+		if (Input.GetKeyDown(KeyCode.X) && m_blasterShotTimer == 0.0f)
 		{
 			//ブラスターを生成
 			GameObject blaster = (GameObject)Instantiate(m_blasterPrefab, m_blasterMuzzle.position, Quaternion.identity);
 			//前方に力を加える
-			blaster.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, BLASTER_SHOT_SPEED), ForceMode.Impulse);
+			blaster.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, -BLASTER_SHOT_SPEED, BLASTER_SHOT_SPEED), ForceMode.Impulse);
+
+			m_blasterShotTimer = BLASTER_SHOT_INTERVAL;
 		}
 
+		m_blasterShotTimer -= Time.deltaTime;
+		if (m_blasterShotTimer <= 0.0f) m_blasterShotTimer = 0.0f;
+
+	}
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		//敵弾に当たったら消滅
+		if (collision.gameObject.tag == "EnemyBullet" || collision.gameObject.tag == "Enemy")
+		{
+			//爆発のパーティクル再生
+			var exlotion = Instantiate(m_explosion, transform.position, Quaternion.identity);
+			var explotsionParticle = exlotion.GetComponent<ParticleSystem>();
+			explotsionParticle.Play();
+
+			//消滅
+			Destroy(gameObject);
+		}
+	}
+
+	void Ray()
+	{
+		Ray ray = new Ray(transform.position, new Vector3(0.0f, -1.0f, 1.0f));
+
+		RaycastHit hit;
+
+		float distance = 20.0f;
+
+		Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
+
+		if(Physics.Raycast(ray,out hit,distance))
+		{
+			//Debug.Log(ray.GetPoint(distance));
+			if(hit.collider.tag =="Plane")
+				m_target.transform.position = new Vector3(hit.point.x,hit.point.y +1.0f,hit.point.z);
+		}
 	}
 }
