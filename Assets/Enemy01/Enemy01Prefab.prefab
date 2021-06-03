@@ -129,8 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 2559258650150863976, guid: 5983920664bf66c47bee6310aa5be346, type: 3}
-  speed: 0.25
-  rotateSpeed: 30
+  speed: 20
+  rotateSpeed: 1080
   life: 1
   destroyPos: {x: 30, y: 20, z: -11}
   getScore: 30

@@ -298,7 +298,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -790,6 +790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 816979498}
   - component: {fileID: 816979499}
+  - component: {fileID: 816979500}
   m_Layer: 0
   m_Name: PlaySceneManager
   m_TagString: Untagged
@@ -827,9 +828,108 @@ MonoBehaviour:
   m_lifeText: {fileID: 2136359840}
   m_gameOverText: {fileID: 46322939}
   m_scoreText: {fileID: 1101981315}
+  m_hiScoreText: {fileID: 107166846}
   TEXT_DESTROY_SECONDS: 2
   m_lifeTextTop: {fileID: 464521734}
   m_UI: {fileID: 488855158}
+  m_lifeUI: {fileID: 127942669}
+  m_introBGM: {fileID: 8300000, guid: 56876024e8d39d84ba8e2a40a8c60998, type: 3}
+--- !u!82 &816979500
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816979497}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.178
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!224 &817400566 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6343492685379548031, guid: 609706241fb222b47ab1e758d600769d, type: 3}
@@ -1045,7 +1145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -242, y: 158}
+  m_AnchoredPosition: {x: -284.6, y: 158}
   m_SizeDelta: {x: 176.2, y: 35.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1101981315
@@ -1075,7 +1175,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1177,7 +1277,7 @@ PrefabInstance:
       objectReference: {fileID: 2847800624335832414, guid: 8ee6dd1c83b9d94449507f16ab533721, type: 3}
     - target: {fileID: 6946403873215497894, guid: e734d9c27c95d3141b8fe6d5e4e46e5a, type: 3}
       propertyPath: maxEnemyNum
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6946403873215497894, guid: e734d9c27c95d3141b8fe6d5e4e46e5a, type: 3}
       propertyPath: create01Timer
@@ -1193,7 +1293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6946403873215497894, guid: e734d9c27c95d3141b8fe6d5e4e46e5a, type: 3}
       propertyPath: createChangeTimer
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6946403873215497895, guid: e734d9c27c95d3141b8fe6d5e4e46e5a, type: 3}
       propertyPath: m_Name
@@ -1289,7 +1389,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5037006946380560238, guid: bdf27463872440646ae2106364c68371, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5037006946380560238, guid: bdf27463872440646ae2106364c68371, type: 3}
       propertyPath: m_LocalScale.x

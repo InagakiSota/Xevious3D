@@ -16,6 +16,8 @@ public class PlaySceneManager : MonoBehaviour
 
 	//スコアのテキスト
 	[SerializeField] Text m_scoreText;
+	//ハイスコアのテキスト
+	[SerializeField] Text m_hiScoreText;
 
 	//ゲーム開始時のテキストを消す秒数
 	[SerializeField] float TEXT_DESTROY_SECONDS;
@@ -25,9 +27,16 @@ public class PlaySceneManager : MonoBehaviour
 	//UI
 	[SerializeField] GameObject m_UI;
 
+	//残機数のUI
+	[SerializeField] GameObject m_lifeUI;
 
 	//経過時間
 	float m_totalTime;
+
+	//オーディオソース
+	private AudioSource m_audio;
+	//イントロのBGM
+	[SerializeField] AudioClip m_introBGM;
 
 
 
@@ -48,6 +57,15 @@ public class PlaySceneManager : MonoBehaviour
 
 		m_totalTime = 0.0f;
 
+		//スコアをリセット
+		ShareData.Instance.score = 0;
+
+		//オーディオソースの取得
+		m_audio = this.GetComponent<AudioSource>();
+		//イントロ再生
+		if(m_audio.isPlaying == false)
+			m_audio.PlayOneShot(m_introBGM);
+
 	}
 
 	// Update is called once per frame
@@ -57,7 +75,8 @@ public class PlaySceneManager : MonoBehaviour
 		if(ShareData.Instance.life < 0)
 		{
 			m_gameOverText.enabled = true;
-			m_UI.SetActive(false);
+			m_UI.SetActive(true);
+			m_lifeUI.SetActive(false);
 		}
 
 	    if(Input.GetKeyDown(KeyCode.Space))	
@@ -73,6 +92,14 @@ public class PlaySceneManager : MonoBehaviour
 
 		//テキストにスコアを反映
 		m_scoreText.text = ShareData.Instance.score.ToString();
+
+		//もしスコアがハイスコアを上回ったら現在のスコアをハイスコアにする
+		if(ShareData.Instance.score >= ShareData.Instance.hiScore)
+		{
+			ShareData.Instance.hiScore = ShareData.Instance.score;
+		}
+		//テキストにハイスコアを反映
+		m_hiScoreText.text = ShareData.Instance.hiScore.ToString();
 
 		//残機数をテキストに反映
 		m_lifeTextTop.text = "x" + ShareData.Instance.life;

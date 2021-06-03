@@ -80,7 +80,7 @@ public class Enemy02Controller : MonoBehaviour
         if (shotFlag == true)
         {
             //追尾先まで移動（追尾先は更新していないため追ってはこない）
-            transform.position += targetVector * speed;
+            transform.position += targetVector * speed * Time.deltaTime;
 
             //xの値の差が1.0f以下なら打つ
             if (Mathf.Abs(transform.position.x - player.transform.position.x) <= 2.0f)
@@ -97,10 +97,10 @@ public class Enemy02Controller : MonoBehaviour
                 Vector3 vel = new Vector3(-1.1f * targetVector.x * speed, 0.0f, targetVector.z * speed);
                
                 //動く
-                transform.position += vel;
+                transform.position += vel * Time.deltaTime;
 
                 //回転
-                transform.Rotate(0.0f, 0.0f, -rotateSpeed);
+                transform.Rotate(0.0f, 0.0f, -rotateSpeed * Time.deltaTime);
             }
             //―方向にいたら左方向の画面外に
             else
@@ -109,10 +109,10 @@ public class Enemy02Controller : MonoBehaviour
                 Vector3 vel = new Vector3(-1.1f * targetVector.x * speed, 0.0f, targetVector.z * speed);
                 
                 //動く
-                transform.position += vel;
+                transform.position += vel * Time.deltaTime;
 
                 //回転
-                transform.Rotate(0.0f, 0.0f, rotateSpeed);
+                transform.Rotate(0.0f, 0.0f, rotateSpeed * Time.deltaTime);
             }
 
             //タイマーが0になって弾があるなら

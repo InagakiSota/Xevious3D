@@ -42,13 +42,13 @@ public class BossController : MonoBehaviour
 		//指定の位置まで行ったら行動開始
 		if ((int)transform.position.z >= 8)
 		{
-			transform.position += new Vector3(0.0f, 0.0f, -speed);
+			transform.position += new Vector3(0.0f, 0.0f, -speed) * Time.deltaTime;
 			shotFlag = true;
 		}
 
 		if (!aliveFlag)
 		{
-			transform.position += new Vector3(0.0f, 0.0f, -speed);
+			transform.position += new Vector3(0.0f, 0.0f, -speed) * Time.deltaTime;
 		}
 
 		//ライフなくなったとき

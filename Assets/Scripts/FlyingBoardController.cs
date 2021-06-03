@@ -26,9 +26,9 @@ public class FlyingBoardController : MonoBehaviour
         //ë¨ìxê›íË
         Vector3 vel = new Vector3(0, 0, speed);
         //ìÆÇ≠
-        transform.position -= vel;
+        transform.position -= vel * Time.deltaTime;
         //âÒì]
-        transform.Rotate(rotateSpeed, 0, 0);
+        transform.Rotate(rotateSpeed * Time.deltaTime, 0, 0);
 
         //è¡ãé
         if (transform.position.z <= destroyPos.z)

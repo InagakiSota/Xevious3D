@@ -15,6 +15,9 @@ public class ShareData : MonoBehaviour
 
     public int score = 0;//スコア
 
+    //ハイスコア
+    public int hiScore = 0;
+
     public int life = 2;
 
 

@@ -29,7 +29,7 @@ public class EnemyBulletController : MonoBehaviour
     void Update()
     {
         //“®‚­
-        transform.position += targetVector * speed;
+        transform.position += targetVector * speed * Time.deltaTime;
 
         //‰æ–ÊŠO‚¢‚Á‚½‚çÁ‹
         if (transform.position.z <= -20.0f || Mathf.Abs(transform.position.x) >= 50.0f)

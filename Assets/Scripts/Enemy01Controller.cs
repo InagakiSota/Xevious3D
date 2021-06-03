@@ -87,7 +87,7 @@ public class Enemy01Controller : MonoBehaviour
 		if (shotFlag == true)
 		{
 			//追尾先まで移動（追尾先は更新していないため追ってはこない）
-			transform.position += targetVector * speed;
+			transform.position += targetVector * speed * Time.deltaTime;
 
 			//x座標が同じになったら
 			//if ((int)this.transform.position.x == (int)player.transform.position.x)
@@ -104,27 +104,27 @@ public class Enemy01Controller : MonoBehaviour
 			if (transform.position.x > 0.0f)
 			{
 				//加速度設定
-				Vector3 accel = new Vector3(speed * 0.05f, 0.0f, speed * 0.01f);
+				Vector3 accel = new Vector3(speed, 0.0f, speed * 0.01f);
 
 				//加速
-				vel += accel;
-				transform.position += vel;
+				vel += accel * Time.deltaTime;
+				transform.position += vel * Time.deltaTime;
 
 				//回転
-				transform.Rotate(0.0f, 0.0f, -rotateSpeed);
+				transform.Rotate(0.0f, 0.0f, -rotateSpeed * Time.deltaTime);
 			}
 			//-方向にいたら左方向の画面外に
 			else
 			{
 				//加速度設定
-				Vector3 accel = new Vector3(-speed * 0.05f, 0.0f, speed * 0.01f);
+				Vector3 accel = new Vector3(-speed, 0.0f, speed * 0.01f);
 
 				//加速
-				vel += accel;
-				transform.position += vel;
+				vel += accel * Time.deltaTime;
+				transform.position += vel * Time.deltaTime;
 
 				//回転
-				transform.Rotate(0.0f, 0.0f, rotateSpeed);
+				transform.Rotate(0.0f, 0.0f, rotateSpeed * Time.deltaTime);
 			}
 
 			//タイマーが0になって弾があるなら
