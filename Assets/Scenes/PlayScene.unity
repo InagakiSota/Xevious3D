@@ -1177,7 +1177,7 @@ PrefabInstance:
       objectReference: {fileID: 2847800624335832414, guid: 8ee6dd1c83b9d94449507f16ab533721, type: 3}
     - target: {fileID: 6946403873215497894, guid: e734d9c27c95d3141b8fe6d5e4e46e5a, type: 3}
       propertyPath: maxEnemyNum
-      value: 8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6946403873215497894, guid: e734d9c27c95d3141b8fe6d5e4e46e5a, type: 3}
       propertyPath: create01Timer
