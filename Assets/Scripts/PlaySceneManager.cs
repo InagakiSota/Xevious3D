@@ -11,6 +11,26 @@ public class PlaySceneManager : MonoBehaviour
 	//残機数のテキスト
 	[SerializeField] Text m_lifeText;
 
+	//ゲームオーバーのテキスト
+	[SerializeField] Text m_gameOverText;
+
+	//スコアのテキスト
+	[SerializeField] Text m_scoreText;
+
+	//ゲーム開始時のテキストを消す秒数
+	[SerializeField] float TEXT_DESTROY_SECONDS;
+	//上部の残機数のテキスト
+	[SerializeField] Text m_lifeTextTop;
+
+	//UI
+	[SerializeField] GameObject m_UI;
+
+
+	//経過時間
+	float m_totalTime;
+
+
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -18,16 +38,45 @@ public class PlaySceneManager : MonoBehaviour
 		FadeManager.FadeIn();
 		//残機数をテキストに反映
 		m_lifeText.text = ShareData.Instance.life.ToString();
-		//ゲーム開始時のテキストを5秒後に消す
-		Destroy(m_startText, 5.0f);
+		//ゲーム開始時のテキストを指定秒数後に消す
+		Destroy(m_startText, TEXT_DESTROY_SECONDS);
+		
+		m_gameOverText.enabled = false;
+
+		//UIを非表示にする
+		m_UI.SetActive(false);
+
+		m_totalTime = 0.0f;
+
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		//残機が無くなったらゲームオーバー
+		if(ShareData.Instance.life < 0)
+		{
+			m_gameOverText.enabled = true;
+			m_UI.SetActive(false);
+		}
+
 	    if(Input.GetKeyDown(KeyCode.Space))	
 		{
 			FadeManager.FadeOut("TitleScene");
 		}
+
+		m_totalTime += Time.deltaTime;
+		if (m_totalTime >= TEXT_DESTROY_SECONDS && ShareData.Instance.life >= 0)
+		{
+			m_UI.SetActive(true);
+		}
+
+		//テキストにスコアを反映
+		m_scoreText.text = ShareData.Instance.score.ToString();
+
+		//残機数をテキストに反映
+		m_lifeTextTop.text = "x" + ShareData.Instance.life;
 	}
+
+
 }

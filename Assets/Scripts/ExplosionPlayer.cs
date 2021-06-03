@@ -2,23 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitleSceneManager : MonoBehaviour
+public class ExplosionPlayer : MonoBehaviour
 {
 	// Start is called before the first frame update
 	void Start()
 	{
-		//フェードイン
-		FadeManager.FadeIn();
-		//残機を最大値に設定させる
-		ShareData.Instance.life = 2;
+		
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
+		
+	}
+
+	private void OnParticleSystemStopped()
+	{
+		//残機数が0未満でなければプレイシーンをリロード
+		if (ShareData.Instance.life >= 0)
 		{
 			FadeManager.FadeOut("PlayScene");
 		}
+
 	}
 }

@@ -41,6 +41,9 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] float ZAPPER_SHOT_INTERVAL;
 	//爆発のパーティクル
 	[SerializeField] GameObject m_explosion;
+	//プレイヤーのモデル
+	[SerializeField] GameObject m_playerModel;
+
 
 	//移動量
 	Vector3 m_vel;
@@ -51,10 +54,15 @@ public class PlayerController : MonoBehaviour
 	//ザッパーの発射タイマー
 	float m_zapperShotTimer;
 
+	//死亡フラグ
+	bool m_isDeath;
+
 	// Start is called before the first frame update
 	void Start()
 	{
 		m_pos = this.transform.position;
+
+		m_isDeath = false;
 	}
 
 	// Update is called once per frame
@@ -62,14 +70,46 @@ public class PlayerController : MonoBehaviour
 	{
 		//移動処理
 		Move();
-
 		//ザッパーの発射
 		ZapperShot();
 		//ブラスターの発射
 		BlasterShot();
-
 		//Rayのテスト
 		Ray();
+
+		////爆発が終了したらシーン遷移
+		//GameObject explosionParticle = GameObject.Find("ExplosionParticlePlayer(Clone)");
+		//Debug.Log(explosionParticle);
+		//if (explosionParticle != null &&  explosionParticle.gameObject.activeSelf != true)
+		//{
+
+		//	//残機数が0未満でなければプレイシーンをリロード
+		//	if (ShareData.Instance.life >= 0)
+		//	{
+		//		FadeManager.FadeOut("PlayScene");
+		//	}
+		//}
+
+		if(m_isDeath == true)
+		{
+			//残機を1減らす
+			ShareData.Instance.life = ShareData.Instance.life - 1;
+			//消滅
+			Destroy(gameObject);
+
+			//爆発のパーティクル再生
+			var exlotion = Instantiate(m_explosion, transform.position, Quaternion.identity);
+			var explotsionParticle = exlotion.GetComponent<ParticleSystem>();
+			explotsionParticle.Play();
+
+
+			//ターゲットを消す
+			Destroy(m_target);
+			Destroy(m_target2);
+
+			m_isDeath = false;
+		}
+
 	}
 
 	//移動処理
@@ -79,6 +119,13 @@ public class PlayerController : MonoBehaviour
 		m_vel.z = Input.GetAxis("Vertical");
 		//左右入力
 		m_vel.x = Input.GetAxis("Horizontal");
+
+		//左右移動に合わせて機体を傾ける
+		Vector3 axis = new Vector3(0.0f, 0.0f, 1.0f);
+		float angle = -45.0f * m_vel.x;
+		Quaternion q = Quaternion.AngleAxis(angle, axis);
+		m_playerModel.transform.rotation = q;
+		
 		//正規化
 		m_vel.Normalize();
 		//移動量を座標に加算する
@@ -129,7 +176,6 @@ public class PlayerController : MonoBehaviour
 	void BlasterShot()
 	{
 		GameObject blasterBullet = GameObject.Find("BlasterPrefab(Clone)");
-		//Debug.Log(blasterBullet);
 
 		//X入力かつ他のブラスター弾がなければ発射　
 		if (Input.GetKey(KeyCode.X) && blasterBullet == null)
@@ -166,23 +212,12 @@ public class PlayerController : MonoBehaviour
 	private void OnCollisionEnter(Collision collision)
 	{
 		//敵弾に当たったら消滅
-		if (collision.gameObject.tag == "EnemyBullet" || collision.gameObject.tag == "Enemy")
+		if (collision.gameObject.tag == "EnemyBullet" || collision.gameObject.tag == "Enemy" && m_isDeath == false)
 		{
-			//爆発のパーティクル再生
-			var exlotion = Instantiate(m_explosion, transform.position, Quaternion.identity);
-			var explotsionParticle = exlotion.GetComponent<ParticleSystem>();
-			explotsionParticle.Play();
+			m_isDeath = true;
 
-			//消滅
-			Destroy(gameObject);
 
-			//残機を1減らす
-			ShareData.Instance.life = ShareData.Instance.life - 1;
-			//残機数が0でなければプレイシーンをリロード
-			if (ShareData.Instance.life > 0)
-			{
-				FadeManager.FadeOut("PlayScene");
-			}
+
 
 		}
 	}
@@ -200,7 +235,7 @@ public class PlayerController : MonoBehaviour
 		if(Physics.Raycast(ray,out hit,distance))
 		{
 			//Debug.Log(ray.GetPoint(distance));
-			if(hit.collider.tag =="Plane")
+			if(hit.collider.tag =="Plane" || hit.collider.tag == "Enemy")
 			{
 				m_target.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
 
