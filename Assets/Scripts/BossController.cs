@@ -89,4 +89,10 @@ public class BossController : MonoBehaviour
 	{
 		life -= damege;
 	}
+
+	//ボスのダメージの取得
+	public int GetDamage()
+	{
+		return life;
+	}
 }

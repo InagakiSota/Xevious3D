@@ -17,12 +17,18 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] Transform m_blasterMuzzle;
 	//ザッパーのプレハブ
 	[SerializeField] GameObject m_zapperPrefab;
+	//ザッパー(青色)のプレハブ
+	[SerializeField] GameObject m_zapperBluePrefab;
 	//ブラスターのプレハブ
 	[SerializeField] GameObject m_blasterPrefab;
-	//ターゲット
+	//ターゲット(通常)
 	[SerializeField] GameObject m_target;
-	//ターゲット2
+	//ターゲット2(ブラスター発射位置)
 	[SerializeField] GameObject m_target2;
+	//ターゲット3(ブラスター発射中)
+	[SerializeField] GameObject m_target3;
+	//ターゲット4(ターゲット上に敵がいる)
+	[SerializeField] GameObject m_target4;
 	//移動速度
 	[SerializeField] float MOVE_SPEED;
 	//ザッパーの発射速度
@@ -57,6 +63,9 @@ public class PlayerController : MonoBehaviour
 	//死亡フラグ
 	bool m_isDeath;
 
+	//ザッパーの色フラグ
+	bool m_zapperColorFlag = false;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -77,18 +86,6 @@ public class PlayerController : MonoBehaviour
 		//Rayのテスト
 		Ray();
 
-		////爆発が終了したらシーン遷移
-		//GameObject explosionParticle = GameObject.Find("ExplosionParticlePlayer(Clone)");
-		//Debug.Log(explosionParticle);
-		//if (explosionParticle != null &&  explosionParticle.gameObject.activeSelf != true)
-		//{
-
-		//	//残機数が0未満でなければプレイシーンをリロード
-		//	if (ShareData.Instance.life >= 0)
-		//	{
-		//		FadeManager.FadeOut("PlayScene");
-		//	}
-		//}
 
 		if(m_isDeath == true)
 		{
@@ -106,6 +103,8 @@ public class PlayerController : MonoBehaviour
 			//ターゲットを消す
 			Destroy(m_target);
 			Destroy(m_target2);
+			Destroy(m_target3);
+			Destroy(m_target4);
 
 			m_isDeath = false;
 		}
@@ -144,27 +143,65 @@ public class PlayerController : MonoBehaviour
 		//単発
 		if (Input.GetKeyDown(KeyCode.Z))
 		{
-			//ザッパー(右)を生成
-			GameObject zapper1 = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleRight.position, Quaternion.identity);
-			//ザッパー(左)を生成
-			GameObject zapper2 = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleLeft.position, Quaternion.identity);
-			//前方に力を加える
-			zapper1.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
-			zapper2.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+			if (m_zapperColorFlag == false)
+			{
+				//ザッパー(右)を生成
+				GameObject zapperRight = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleRight.position, Quaternion.identity);
+				//ザッパー(左)を生成
+				GameObject zapperLeft = (GameObject)Instantiate(m_zapperBluePrefab, m_zapperMuzzleLeft.position, Quaternion.identity);
+
+
+				//前方に力を加える
+				zapperRight.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+				zapperLeft.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+			}
+			else
+			{
+				//ザッパー(右)を生成
+				GameObject zapperRight = (GameObject)Instantiate(m_zapperBluePrefab, m_zapperMuzzleRight.position, Quaternion.identity);
+				//ザッパー(左)を生成
+				GameObject zapperLeft = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleLeft.position, Quaternion.identity);
+
+				//前方に力を加える
+				zapperRight.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+				zapperLeft.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+			}
+
+			//ザッパーの色フラグを入れ替える
+			m_zapperColorFlag = !m_zapperColorFlag;
 		}
 
 		//連射
 		if (Input.GetKey(KeyCode.LeftShift) && m_zapperShotTimer <= 0.0f)
 		{
-			//ザッパー(右)を生成
-			GameObject zapper3 = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleRight.position, Quaternion.identity);
-			//ザッパー(左)を生成
-			GameObject zapper4 = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleLeft.position, Quaternion.identity);
-			//前方に力を加える
-			zapper3.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
-			zapper4.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+			if (m_zapperColorFlag == false)
+			{
+				//ザッパー(右)を生成
+				GameObject zapperRight = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleRight.position, Quaternion.identity);
+				//ザッパー(左)を生成
+				GameObject zapperLeft = (GameObject)Instantiate(m_zapperBluePrefab, m_zapperMuzzleLeft.position, Quaternion.identity);
 
+				//前方に力を加える
+				zapperRight.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+				zapperLeft.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+			}
+			else
+			{             
+				//ザッパー(右)を生成
+				GameObject zapperRight = (GameObject)Instantiate(m_zapperBluePrefab, m_zapperMuzzleRight.position, Quaternion.identity);
+				//ザッパー(左)を生成
+				GameObject zapperLeft = (GameObject)Instantiate(m_zapperPrefab, m_zapperMuzzleLeft.position, Quaternion.identity);
+
+				//前方に力を加える
+				zapperRight.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+				zapperLeft.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 0.0f, ZAPPER_SHOT_SPEED), ForceMode.Impulse);
+
+
+			}
+			//連射のインターバル設定
 			m_zapperShotTimer = ZAPPER_SHOT_INTERVAL;
+			//ザッパーの色フラグを入れ替える
+			m_zapperColorFlag = !m_zapperColorFlag;
 
 		}
 		m_zapperShotTimer -= Time.deltaTime;
@@ -194,14 +231,21 @@ public class PlayerController : MonoBehaviour
 		}
 		else
 		{
-			//普段はターゲット2を非表示
+			//普段はターゲット2,3を非表示
 			m_target2.gameObject.SetActive(false);
+			m_target3.gameObject.SetActive(false);
+
+			//普段はターゲット1を表示
+			m_target.gameObject.SetActive(true);
 		}
 
 		if(blasterBullet != null)
 		{
-			//ブラスター弾があればターゲット2を表示
+			//ブラスター弾があればターゲット2,3を表示
 			m_target2.gameObject.SetActive(true);
+			m_target3.gameObject.SetActive(true);
+			//ブラスター弾があればターゲット1を非表示
+			m_target.gameObject.SetActive(false);
 
 		}
 
@@ -215,30 +259,47 @@ public class PlayerController : MonoBehaviour
 		if (collision.gameObject.tag == "EnemyBullet" || collision.gameObject.tag == "Enemy" && m_isDeath == false)
 		{
 			m_isDeath = true;
+		}
 
-
-
-
+		//スペシャルフラッグに当たったら残機を1増やす
+		if(collision.gameObject.tag == "SpecialFlag")
+		{
+			ShareData.Instance.life++;
 		}
 	}
 
 	void Ray()
 	{
+		//ray作成
 		Ray ray = new Ray(transform.position, new Vector3(0.0f, -1.0f, 1.0f));
 
 		RaycastHit hit;
 
+		//rayを飛ばす距離
 		float distance = 20.0f;
-
+		//rayのデバッグ描画
 		Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
 
 		if(Physics.Raycast(ray,out hit,distance))
 		{
-			//Debug.Log(ray.GetPoint(distance));
+			//床か敵にrayが当たったらターゲットをその上に描画
 			if(hit.collider.tag =="Plane" || hit.collider.tag == "Enemy")
 			{
 				m_target.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
+				m_target3.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
+				m_target4.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
 
+				if (hit.collider.tag == "Enemy")
+				{
+					m_target.SetActive(false);
+					m_target4.SetActive(true);
+				}
+				else
+				{
+					//m_target.SetActive(true);
+					m_target4.SetActive(false);
+
+				}
 			}
 
 		}

@@ -57,8 +57,6 @@ public class PlaySceneManager : MonoBehaviour
 
 		m_totalTime = 0.0f;
 
-		//スコアをリセット
-		ShareData.Instance.score = 0;
 
 		//オーディオソースの取得
 		m_audio = this.GetComponent<AudioSource>();

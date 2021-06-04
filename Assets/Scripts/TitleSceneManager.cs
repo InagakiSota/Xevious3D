@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Collections;
 using System.IO;
 using System.Text;
 using UnityEngine.UI;
@@ -21,7 +20,10 @@ public class TitleSceneManager : MonoBehaviour
 	
 	// Start is called before the first frame update
 	void Start()
-	{
+	{          
+		//スコアをリセット
+		ShareData.Instance.score = 0;
+
 		path = Application.dataPath + "/ScoreData/" + fileName;
 		//外部ファイルの読み込み
 		ReadFile();

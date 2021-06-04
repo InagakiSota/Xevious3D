@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3306710298264534460}
   - component: {fileID: 5153094681288134374}
   - component: {fileID: 5501303252947843106}
+  - component: {fileID: 2401326053435761064}
   m_Layer: 0
   m_Name: BossHitBox4
   m_TagString: Enemy
@@ -44,7 +45,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.2, y: 1.2, z: 1.2}
   m_Center: {x: -4.074536e-10, y: 0, z: 0}
 --- !u!114 &5501303252947843106
 MonoBehaviour:
@@ -62,6 +63,22 @@ MonoBehaviour:
   shotTimer: 3
   m_explosion: {fileID: 1405873854231797103, guid: d3ecb5e1304dbe74489bf7f6d341160d, type: 3}
   damegePoint: 1
+--- !u!54 &2401326053435761064
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056898840167257189}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1141163269597693832
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,6 +185,7 @@ GameObject:
   - component: {fileID: 4850848904963381285}
   - component: {fileID: 3037568479614878755}
   - component: {fileID: 2462511143586240745}
+  - component: {fileID: 4769135839579297476}
   m_Layer: 0
   m_Name: BossHitBox3
   m_TagString: Enemy
@@ -201,7 +219,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.2, y: 1.2, z: 1.2}
   m_Center: {x: -4.074536e-10, y: 0, z: 0}
 --- !u!114 &2462511143586240745
 MonoBehaviour:
@@ -219,6 +237,22 @@ MonoBehaviour:
   shotTimer: 3
   m_explosion: {fileID: 1405873854231797103, guid: d3ecb5e1304dbe74489bf7f6d341160d, type: 3}
   damegePoint: 1
+--- !u!54 &4769135839579297476
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778834204912588361}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2247393894581933164
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,9 +264,10 @@ GameObject:
   - component: {fileID: 2557361323007613542}
   - component: {fileID: 3570241073601586230}
   - component: {fileID: 1889926979602519818}
+  - component: {fileID: 7462474911547552535}
   m_Layer: 0
   m_Name: pCylinder1
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -245,7 +280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2247393894581933164}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.0014038165, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0014038165, z: 0}
   m_LocalScale: {x: 1, y: 0.12872958, z: 1}
   m_Children: []
   m_Father: {fileID: 3228723835387518948}
@@ -300,6 +335,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7462474911547552535
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2247393894581933164}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5076798556035486163, guid: a9961b9170caa70448b5730c55a13664, type: 3}
 --- !u!1 &2494501450348797276
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,9 +360,10 @@ GameObject:
   - component: {fileID: 8781926171440729762}
   - component: {fileID: 1823149209831060148}
   - component: {fileID: 38567215252795758}
+  - component: {fileID: 7294702130645517768}
   m_Layer: 0
   m_Name: pCube1
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -381,6 +431,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7294702130645517768
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2494501450348797276}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4068373912626513877, guid: a9961b9170caa70448b5730c55a13664, type: 3}
 --- !u!1 &2847800624335832414
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,9 +455,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3228723835387518948}
   - component: {fileID: 845180238318174040}
+  - component: {fileID: 2734736405332852357}
   m_Layer: 0
   m_Name: BossPrefab
-  m_TagString: Enemy
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442,6 +507,22 @@ MonoBehaviour:
   speed: 5
   destroyPos: {x: 0, y: 0, z: 0}
   getScore: 0
+--- !u!54 &2734736405332852357
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2847800624335832414}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3014174480635769505
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,9 +629,10 @@ GameObject:
   - component: {fileID: 6252160741935249172}
   - component: {fileID: 2975728336176855244}
   - component: {fileID: 8844637795182883961}
+  - component: {fileID: 5057694160268384299}
   m_Layer: 0
   m_Name: pCube5
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -618,6 +700,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5057694160268384299
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3520709199496939029}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3758573805739257388, guid: a9961b9170caa70448b5730c55a13664, type: 3}
 --- !u!1 &4405329750005650047
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,9 +725,10 @@ GameObject:
   - component: {fileID: 8834074864171365317}
   - component: {fileID: 892055205898323486}
   - component: {fileID: 4252556209480602782}
+  - component: {fileID: 6804197123286303803}
   m_Layer: 0
   m_Name: pCube3
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -699,6 +796,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6804197123286303803
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4405329750005650047}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3369316746193770658, guid: a9961b9170caa70448b5730c55a13664, type: 3}
 --- !u!1 &4587101640471831183
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,9 +821,10 @@ GameObject:
   - component: {fileID: 7148947656356430261}
   - component: {fileID: 9073715131879122672}
   - component: {fileID: 5862582899086202355}
+  - component: {fileID: 467983340077970748}
   m_Layer: 0
   m_Name: pCylinder2
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -725,7 +837,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4587101640471831183}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.0007, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0007, z: 0}
   m_LocalScale: {x: 1, y: 0.12872958, z: 1}
   m_Children: []
   m_Father: {fileID: 3228723835387518948}
@@ -780,6 +892,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &467983340077970748
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4587101640471831183}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6099800089077584851, guid: a9961b9170caa70448b5730c55a13664, type: 3}
 --- !u!1 &5127853052111490410
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,6 +917,7 @@ GameObject:
   - component: {fileID: 8295447810357885998}
   - component: {fileID: 2077765944150790835}
   - component: {fileID: 3525640057139210589}
+  - component: {fileID: 8117159398420776322}
   m_Layer: 0
   m_Name: BossHitBox5
   m_TagString: Enemy
@@ -824,7 +951,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.76, z: 0.83}
+  m_Size: {x: 0.8, y: 1, z: 0.83}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3525640057139210589
 MonoBehaviour:
@@ -842,6 +969,22 @@ MonoBehaviour:
   shotTimer: 3
   m_explosion: {fileID: 1405873854231797103, guid: d3ecb5e1304dbe74489bf7f6d341160d, type: 3}
   damegePoint: 5
+--- !u!54 &8117159398420776322
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5127853052111490410}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5800029775809081312
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,9 +996,10 @@ GameObject:
   - component: {fileID: 1948093292354257659}
   - component: {fileID: 2413034910622694864}
   - component: {fileID: 282651498134339204}
+  - component: {fileID: 5312364871885555188}
   m_Layer: 0
   m_Name: pCube4
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -923,6 +1067,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5312364871885555188
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800029775809081312}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3861478300804232965, guid: a9961b9170caa70448b5730c55a13664, type: 3}
 --- !u!1 &6099868441867921599
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,9 +1092,10 @@ GameObject:
   - component: {fileID: 2848357592612494954}
   - component: {fileID: 4986795262695033416}
   - component: {fileID: 9122982547373556156}
+  - component: {fileID: 4475000072719002057}
   m_Layer: 0
   m_Name: pCube6
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1004,6 +1163,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4475000072719002057
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6099868441867921599}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6606501483488557099, guid: a9961b9170caa70448b5730c55a13664, type: 3}
 --- !u!1 &6472614064809918226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,9 +1269,10 @@ GameObject:
   - component: {fileID: 216738697135741927}
   - component: {fileID: 8267137660663219870}
   - component: {fileID: 8837116871647296300}
+  - component: {fileID: 5132317686529519926}
   m_Layer: 0
   m_Name: pCube2
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1166,6 +1340,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5132317686529519926
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086171600608916845}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5302568919011541938, guid: a9961b9170caa70448b5730c55a13664, type: 3}
 --- !u!1 &7219242918848701970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,6 +1460,7 @@ GameObject:
   - component: {fileID: 7918340790175891539}
   - component: {fileID: 3068312526841880062}
   - component: {fileID: 5893207292082818003}
+  - component: {fileID: 1534630239882087084}
   m_Layer: 0
   m_Name: BossHitBox1
   m_TagString: Enemy
@@ -1305,7 +1494,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.2, y: 1.2, z: 1.2}
   m_Center: {x: -4.074536e-10, y: 0, z: 0}
 --- !u!114 &5893207292082818003
 MonoBehaviour:
@@ -1323,6 +1512,22 @@ MonoBehaviour:
   shotTimer: 3
   m_explosion: {fileID: 1405873854231797103, guid: d3ecb5e1304dbe74489bf7f6d341160d, type: 3}
   damegePoint: 1
+--- !u!54 &1534630239882087084
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7229064588032286711}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8138014887235446093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,9 +1539,10 @@ GameObject:
   - component: {fileID: 8663761529955153355}
   - component: {fileID: 841351466965162214}
   - component: {fileID: 5519197434320886854}
+  - component: {fileID: 748118781240952694}
   m_Layer: 0
   m_Name: pCube7
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1404,6 +1610,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &748118781240952694
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8138014887235446093}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7759331768739107841, guid: a9961b9170caa70448b5730c55a13664, type: 3}
 --- !u!1 &8810318111661694653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,9 +1730,10 @@ GameObject:
   - component: {fileID: 2368138829823537874}
   - component: {fileID: 2695369310879407216}
   - component: {fileID: 906903183530597844}
+  - component: {fileID: 3493610944513570371}
   m_Layer: 0
   m_Name: pCube8
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1580,6 +1801,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3493610944513570371
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9166626721448519091}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6788383922943872000, guid: a9961b9170caa70448b5730c55a13664, type: 3}
 --- !u!1 &9196280766063066649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,6 +1826,7 @@ GameObject:
   - component: {fileID: 8630356686063466949}
   - component: {fileID: 3216043043241676640}
   - component: {fileID: 550287663089125493}
+  - component: {fileID: 5610348228731359143}
   m_Layer: 0
   m_Name: BossHitBox2
   m_TagString: Enemy
@@ -1624,7 +1860,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.2, y: 1.2, z: 1.2}
   m_Center: {x: -4.074536e-10, y: 0, z: 0}
 --- !u!114 &550287663089125493
 MonoBehaviour:
@@ -1642,3 +1878,19 @@ MonoBehaviour:
   shotTimer: 3
   m_explosion: {fileID: 1405873854231797103, guid: d3ecb5e1304dbe74489bf7f6d341160d, type: 3}
   damegePoint: 1
+--- !u!54 &5610348228731359143
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196280766063066649}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

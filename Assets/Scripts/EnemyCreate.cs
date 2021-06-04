@@ -64,6 +64,9 @@ public class EnemyCreate : MonoBehaviour
     [SerializeField]
     float createBossTimer;
 
+    //ゲーム開始時のテキスト
+    [SerializeField] GameObject m_startText;
+
     //現在のタイマー
     float[] timer = new float[3];
 
@@ -89,6 +92,8 @@ public class EnemyCreate : MonoBehaviour
     void Update()
     {
         player = GameObject.Find("Player");
+
+        if (m_startText != null) return;
 
         //生成する敵
         switch (eECS)
