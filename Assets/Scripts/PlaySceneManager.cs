@@ -75,12 +75,14 @@ public class PlaySceneManager : MonoBehaviour
 			m_gameOverText.enabled = true;
 			m_UI.SetActive(true);
 			m_lifeUI.SetActive(false);
+
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				FadeManager.FadeOut("TitleScene");
+			}
+
 		}
 
-	    if(Input.GetKeyDown(KeyCode.Space))	
-		{
-			FadeManager.FadeOut("TitleScene");
-		}
 
 		m_totalTime += Time.deltaTime;
 		if (m_totalTime >= TEXT_DESTROY_SECONDS && ShareData.Instance.life >= 0)

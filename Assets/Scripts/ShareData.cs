@@ -18,6 +18,9 @@ public class ShareData : MonoBehaviour
     //ハイスコア
     public int hiScore = 0;
 
+    //ランキング
+    public int[] ranking = new int[3];
+
     public int life = 2;
 
 

@@ -119,6 +119,8 @@ public class PlayerController : MonoBehaviour
 		//左右入力
 		m_vel.x = Input.GetAxis("Horizontal");
 
+		Debug.Log(m_vel);
+
 		//左右移動に合わせて機体を傾ける
 		Vector3 axis = new Vector3(0.0f, 0.0f, 1.0f);
 		float angle = -45.0f * m_vel.x;
@@ -172,7 +174,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		//連射
-		if (Input.GetKey(KeyCode.LeftShift) && m_zapperShotTimer <= 0.0f)
+		if ((Input.GetKeyDown(KeyCode.Z)) && m_zapperShotTimer <= 0.0f)
 		{
 			if (m_zapperColorFlag == false)
 			{
@@ -215,7 +217,7 @@ public class PlayerController : MonoBehaviour
 		GameObject blasterBullet = GameObject.Find("BlasterPrefab(Clone)");
 
 		//X入力かつ他のブラスター弾がなければ発射　
-		if (Input.GetKey(KeyCode.X) && blasterBullet == null)
+		if ((Input.GetKeyDown(KeyCode.X)) && blasterBullet == null)
 		{
 			//ブラスターを生成
 			GameObject blaster = (GameObject)Instantiate(m_blasterPrefab, m_blasterMuzzle.position, Quaternion.identity);
