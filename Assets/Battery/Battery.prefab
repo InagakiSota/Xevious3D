@@ -676,7 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a25b33841228d04abdf733ce6310f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CreateBulletInterval: 100
+  CreateBulletInterval: 3
   BatteryBulletPrefab: {fileID: 5565092703507385924, guid: be88e16982e71534cadf51c04a6630c5, type: 3}
 --- !u!1 &4344915684110442913
 GameObject:

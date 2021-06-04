@@ -9,7 +9,7 @@ public class BatteryBulletCreate : MonoBehaviour
     int CreateBulletInterval = 180;
 
     //弾の生成間隔のカウント
-    private int m_BulletIntervalCount = 0;
+    private float m_BulletIntervalCount = 0;
 
     //発生させる弾のPrefab
     [SerializeField]
@@ -32,6 +32,6 @@ public class BatteryBulletCreate : MonoBehaviour
             Instantiate(BatteryBulletPrefab, this.transform.position, this.transform.rotation);
         }
         //弾のカウントを進める
-        m_BulletIntervalCount++;
+        m_BulletIntervalCount+= Time.deltaTime;
     }
 }

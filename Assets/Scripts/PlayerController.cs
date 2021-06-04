@@ -50,6 +50,15 @@ public class PlayerController : MonoBehaviour
 	//プレイヤーのモデル
 	[SerializeField] GameObject m_playerModel;
 
+	//オーディオソース
+	AudioSource m_audio;
+	//爆発のサウンド
+	[SerializeField] AudioClip m_bombSound;
+	//ザッパー発射のサウンド
+	[SerializeField] AudioClip m_zapperSound;
+	//ブラスター発射のサウンド
+	[SerializeField] AudioClip m_blasterSound;
+
 
 	//移動量
 	Vector3 m_vel;
@@ -72,6 +81,8 @@ public class PlayerController : MonoBehaviour
 		m_pos = this.transform.position;
 
 		m_isDeath = false;
+
+		m_audio = this.GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
@@ -89,10 +100,12 @@ public class PlayerController : MonoBehaviour
 
 		if(m_isDeath == true)
 		{
+			//爆発音再生
+			m_audio.PlayOneShot(m_bombSound);
 			//残機を1減らす
 			ShareData.Instance.life = ShareData.Instance.life - 1;
 			//消滅
-			Destroy(gameObject);
+			Destroy(m_playerModel);
 
 			//爆発のパーティクル再生
 			var exlotion = Instantiate(m_explosion, transform.position, Quaternion.identity);
@@ -171,10 +184,13 @@ public class PlayerController : MonoBehaviour
 
 			//ザッパーの色フラグを入れ替える
 			m_zapperColorFlag = !m_zapperColorFlag;
+			//発射音再生
+			m_audio.PlayOneShot(m_zapperSound);
+
 		}
 
 		//連射
-		if ((Input.GetKeyDown(KeyCode.Z)) && m_zapperShotTimer <= 0.0f)
+		if ((Input.GetKey(KeyCode.LeftShift)) && m_zapperShotTimer <= 0.0f)
 		{
 			if (m_zapperColorFlag == false)
 			{
@@ -204,6 +220,8 @@ public class PlayerController : MonoBehaviour
 			m_zapperShotTimer = ZAPPER_SHOT_INTERVAL;
 			//ザッパーの色フラグを入れ替える
 			m_zapperColorFlag = !m_zapperColorFlag;
+			//発射音再生
+			m_audio.PlayOneShot(m_zapperSound);
 
 		}
 		m_zapperShotTimer -= Time.deltaTime;
@@ -261,6 +279,7 @@ public class PlayerController : MonoBehaviour
 		if (collision.gameObject.tag == "EnemyBullet" || collision.gameObject.tag == "Enemy" && m_isDeath == false)
 		{
 			m_isDeath = true;
+
 		}
 
 		//スペシャルフラッグに当たったら残機を1増やす

@@ -10,7 +10,7 @@ public class BatteryBullet : MonoBehaviour
 
     //’e‚ÌÁ–Å‚Ü‚Å‚ÌŠÔ
     [SerializeField]
-    int BulletDisappearTime = 1200;
+    float BulletDisappearTime = 1200;
 
     //’e‚ÌŠp“x
     private Quaternion m_BulletRotate;
@@ -40,7 +40,7 @@ public class BatteryBullet : MonoBehaviour
             Destroy(this.gameObject);
         }
         //’e‚ÌÁ–Å‚Ü‚Å‚ÌŠÔ‚ğŒ¸‚ç‚·
-        BulletDisappearTime--;
+        BulletDisappearTime -= Time.deltaTime;
     }
 
    
