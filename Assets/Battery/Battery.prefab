@@ -872,6 +872,7 @@ MonoBehaviour:
   Life: 1
   Explosion: {fileID: 1405873854231797103, guid: d3ecb5e1304dbe74489bf7f6d341160d, type: 3}
   Score: 100
+  m_bombSE: {fileID: 8300000, guid: 0a53601dabd5b684281eaf0984c6db73, type: 3}
 --- !u!54 &4344915684331196856
 Rigidbody:
   m_ObjectHideFlags: 0

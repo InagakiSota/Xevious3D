@@ -76,7 +76,7 @@ public class PlaySceneManager : MonoBehaviour
 			m_UI.SetActive(true);
 			m_lifeUI.SetActive(false);
 
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.anyKeyDown)
 			{
 				FadeManager.FadeOut("TitleScene");
 			}

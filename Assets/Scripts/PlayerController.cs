@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
 
 	//オーディオソース
 	AudioSource m_audio;
+	//ザッパー用のオーディオソース
+	AudioSource m_zapperAudio;
 	//爆発のサウンド
 	[SerializeField] AudioClip m_bombSound;
 	//ザッパー発射のサウンド
@@ -82,7 +84,9 @@ public class PlayerController : MonoBehaviour
 
 		m_isDeath = false;
 
-		m_audio = this.GetComponent<AudioSource>();
+		m_audio = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+
+		m_zapperAudio = this.GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
@@ -105,7 +109,8 @@ public class PlayerController : MonoBehaviour
 			//残機を1減らす
 			ShareData.Instance.life = ShareData.Instance.life - 1;
 			//消滅
-			Destroy(m_playerModel);
+			//Destroy(m_playerModel);
+			Destroy(this.gameObject);
 
 			//爆発のパーティクル再生
 			var exlotion = Instantiate(m_explosion, transform.position, Quaternion.identity);
@@ -156,7 +161,7 @@ public class PlayerController : MonoBehaviour
 	void ZapperShot()
 	{
 		//単発
-		if (Input.GetKeyDown(KeyCode.Z))
+		if (Input.GetButtonDown("Zapper"))
 		{
 			if (m_zapperColorFlag == false)
 			{
@@ -185,12 +190,12 @@ public class PlayerController : MonoBehaviour
 			//ザッパーの色フラグを入れ替える
 			m_zapperColorFlag = !m_zapperColorFlag;
 			//発射音再生
-			m_audio.PlayOneShot(m_zapperSound);
+			m_zapperAudio.PlayOneShot(m_zapperSound);
 
 		}
 
 		//連射
-		if ((Input.GetKey(KeyCode.LeftShift)) && m_zapperShotTimer <= 0.0f)
+		if (Input.GetButton("ZapperRapit") && m_zapperShotTimer <= 0.0f)
 		{
 			if (m_zapperColorFlag == false)
 			{
@@ -221,7 +226,7 @@ public class PlayerController : MonoBehaviour
 			//ザッパーの色フラグを入れ替える
 			m_zapperColorFlag = !m_zapperColorFlag;
 			//発射音再生
-			m_audio.PlayOneShot(m_zapperSound);
+			m_zapperAudio.PlayOneShot(m_zapperSound);
 
 		}
 		m_zapperShotTimer -= Time.deltaTime;
@@ -235,7 +240,7 @@ public class PlayerController : MonoBehaviour
 		GameObject blasterBullet = GameObject.Find("BlasterPrefab(Clone)");
 
 		//X入力かつ他のブラスター弾がなければ発射　
-		if ((Input.GetKeyDown(KeyCode.X)) && blasterBullet == null)
+		if (Input.GetButtonDown("Blaster") && blasterBullet == null)
 		{
 			//ブラスターを生成
 			GameObject blaster = (GameObject)Instantiate(m_blasterPrefab, m_blasterMuzzle.position, Quaternion.identity);
@@ -247,6 +252,7 @@ public class PlayerController : MonoBehaviour
 			//発射位置にターゲット2を置く
 			m_target2.transform.position = m_target.transform.position;
 
+			m_audio.PlayOneShot(m_blasterSound);
 			//m_blasterShotTimer = BLASTER_SHOT_INTERVAL;
 		}
 		else
@@ -310,6 +316,7 @@ public class PlayerController : MonoBehaviour
 				m_target3.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
 				m_target4.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
 
+				//エネミーを検知したらターゲットの画像を切り替える
 				if (hit.collider.tag == "Enemy")
 				{
 					m_target.SetActive(false);

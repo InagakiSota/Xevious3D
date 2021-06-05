@@ -16,11 +16,17 @@ public class BatteryCollision : MonoBehaviour
     [SerializeField]
     int Score = 300;
 
+    //オーディオソース
+    AudioSource m_audio;
+
+    //爆発音
+    [SerializeField] AudioClip m_bombSE;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_audio = GameObject.Find("Audio Source").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,6 +35,9 @@ public class BatteryCollision : MonoBehaviour
         //体力が0なら爆破する
         if (Life <= 0)
         {
+            //爆発音再生
+            m_audio.PlayOneShot(m_bombSE);
+
             //親ごとを消す
             Destroy(transform.parent.gameObject);
 
@@ -38,7 +47,7 @@ public class BatteryCollision : MonoBehaviour
             explotsionParticle.Play();
 
             //スコア加算
-            ShareData.Instance.score = Score;
+            ShareData.Instance.score += Score;
         }
 
     }

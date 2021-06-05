@@ -27,6 +27,12 @@ public class TitleSceneManager : MonoBehaviour
 	//pushButtonのテキスト
 	[SerializeField] GameObject m_pushButtonText;
 
+	//オーディオソース
+	AudioSource m_audio;
+
+	//決定音
+	[SerializeField] AudioClip m_decideSound;
+
 	//点滅のフラグ
 	private bool m_isBlind = true;
 	//点滅のタイマー
@@ -66,6 +72,8 @@ public class TitleSceneManager : MonoBehaviour
 		//UIの座標取得
 		m_UIPos = m_UI.transform.position;
 
+		m_audio = GetComponent<AudioSource>();
+
 
 	}
 
@@ -88,7 +96,10 @@ public class TitleSceneManager : MonoBehaviour
 		{
 			if (Input.anyKeyDown)
 			{
+				BLIND_INTERVAL = 0.1f;
 				FadeManager.FadeOut("PlayScene");
+				//SE再生
+				m_audio.PlayOneShot(m_decideSound);
 			}
 
 		}

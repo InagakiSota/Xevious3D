@@ -51,6 +51,12 @@ public class Enemy02Controller : MonoBehaviour
     //何回打つか
     int shotNum = 1;
 
+    //オーディオソース
+    AudioSource m_audio;
+
+    //爆発音
+    [SerializeField] AudioClip m_bombSE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +72,9 @@ public class Enemy02Controller : MonoBehaviour
 
         //打つまでの時間をランダム設定
         shotTimer = Random.Range(0.0f, 0.2f);
+
+        m_audio = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -152,7 +161,10 @@ public class Enemy02Controller : MonoBehaviour
             //爆発のパーティクル再生
             var exlotion = Instantiate(m_explosionParticle, transform.position, Quaternion.identity);
             var explotsionParticle = exlotion.GetComponent<ParticleSystem>();
-            explotsionParticle.Play();
+            explotsionParticle.Play();    
+
+            //爆発音再生
+            m_audio.PlayOneShot(m_bombSE);
 
             //スコア加算
             ShareData.Instance.score += getScore;

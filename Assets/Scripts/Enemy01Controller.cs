@@ -55,6 +55,12 @@ public class Enemy01Controller : MonoBehaviour
 	//速度
 	Vector3 vel = Vector3.zero;
 
+	//オーディオソース
+	AudioSource m_audio;
+
+	//爆発音
+	[SerializeField] AudioClip m_bombSE;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -78,6 +84,9 @@ public class Enemy01Controller : MonoBehaviour
 		vel = Vector3.zero;
 
 		shotFlag = true;
+
+		m_audio = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+
 	}
 
 	// Update is called once per frame
@@ -169,6 +178,8 @@ public class Enemy01Controller : MonoBehaviour
 			var explotsionParticle = exlotion.GetComponent<ParticleSystem>();
 			explotsionParticle.Play();
 
+			//爆発音再生
+			m_audio.PlayOneShot(m_bombSE);
 
 			//スコア加算
 			ShareData.Instance.score += getScore;
