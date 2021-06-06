@@ -8,10 +8,6 @@ using UnityEngine.UI;
 
 public class TitleSceneManager : MonoBehaviour
 {
-	//外部ファイルのパス
-	private string path;
-	//ファイル名
-	private string fileName = "hiScore.txt";
 	//外部ファイルのハイスコア
 	private int hiScoreData;
 
@@ -49,19 +45,17 @@ public class TitleSceneManager : MonoBehaviour
 		//スコアをリセット
 		ShareData.Instance.score = 0;
 
-		path = Application.dataPath + "/ScoreData/" + fileName;
+		//ハイスコア用
 		//外部ファイルの読み込み
-		ReadFile();
-		//外部ファイルのハイスコアがゲーム内より大きければハイスコアを上書き
-		if(hiScoreData > ShareData.Instance.hiScore)
-		{
-			ShareData.Instance.hiScore = hiScoreData;
-		}
-		//ゲーム内のハイスコアが外部ファイルのハイスコアよりも大きければ上書き
-		else 
-		{
-			WriteFile(ShareData.Instance.hiScore.ToString());
-		}	
+		ShareData.Instance.Start();
+
+		//ハイスコア用
+		//スコア更新をしなくなるときにfalseにする(UpdateHighScoreがなんども呼び出されないようにするため)
+		ShareData.Instance.FinishUpdateHighScore = false;
+
+		//ハイスコア用
+		//一位をhiScoreに入れる
+		ShareData.Instance.hiScore = ShareData.Instance.ranking[0];
 		//フェードイン
 		FadeManager.FadeIn();
 		//残機を最大値に設定させる
@@ -116,28 +110,4 @@ public class TitleSceneManager : MonoBehaviour
 
 	}
 
-	void WriteFile(string txt)
-	{
-		//FileInfo fi = new FileInfo(path);
-
-		File.WriteAllText(path,txt);
-	}
-
-	void ReadFile()
-	{
-		FileInfo fi = new FileInfo(path);
-		try
-		{
-			using (StreamReader sr = new StreamReader(fi.OpenRead(), Encoding.UTF8))
-			{
-				string readTxt = sr.ReadToEnd();
-				hiScoreData = Convert.ToInt32(readTxt);
-				Debug.Log(hiScoreData);
-			}
-		}
-		catch (Exception e)
-		{
-			Debug.Log(e);
-		}
-	}
 }

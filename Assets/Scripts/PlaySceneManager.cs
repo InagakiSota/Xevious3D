@@ -12,7 +12,7 @@ public class PlaySceneManager : MonoBehaviour
 	[SerializeField] Text m_lifeText;
 
 	//ゲームオーバーのテキスト
-	[SerializeField] Text m_gameOverText;
+	[SerializeField] GameObject m_gameOverText;
 
 	//スコアのテキスト
 	[SerializeField] Text m_scoreText;
@@ -38,6 +38,15 @@ public class PlaySceneManager : MonoBehaviour
 	//イントロのBGM
 	[SerializeField] AudioClip m_introBGM;
 
+	//1位のスコアテキスト
+	[SerializeField] Text m_1stScoreText;
+	//2位のスコアテキスト
+	[SerializeField] Text m_2ndScoreText;
+	//3位のスコアテキスト
+	[SerializeField] Text m_3rdScoreText;
+
+	//マニュアルのテキスト
+	[SerializeField] GameObject m_manual;
 
 
 	// Start is called before the first frame update
@@ -50,7 +59,7 @@ public class PlaySceneManager : MonoBehaviour
 		//ゲーム開始時のテキストを指定秒数後に消す
 		Destroy(m_startText, TEXT_DESTROY_SECONDS);
 		
-		m_gameOverText.enabled = false;
+		m_gameOverText.SetActive(false);
 
 		//UIを非表示にする
 		m_UI.SetActive(false);
@@ -72,7 +81,8 @@ public class PlaySceneManager : MonoBehaviour
 		//残機が無くなったらゲームオーバー
 		if(ShareData.Instance.life < 0)
 		{
-			m_gameOverText.enabled = true;
+			m_gameOverText.SetActive(true);
+			m_manual.SetActive(false);
 			m_UI.SetActive(true);
 			m_lifeUI.SetActive(false);
 
@@ -80,6 +90,16 @@ public class PlaySceneManager : MonoBehaviour
 			{
 				FadeManager.FadeOut("TitleScene");
 			}
+
+			//ハイスコア用
+			//ハイスコアかの判定をしハイスコアなら更新する
+			ShareData.Instance.UpdateHighScore();
+
+			//スコアをテキストに反映
+			m_1stScoreText.text = "1st　" + ShareData.Instance.ranking[0];
+			m_2ndScoreText.text = "2nd　" + ShareData.Instance.ranking[1];
+			m_3rdScoreText.text = "3rd　" + ShareData.Instance.ranking[2];
+
 
 		}
 

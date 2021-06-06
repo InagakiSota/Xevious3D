@@ -39,7 +39,7 @@ public class TakenokoHitCollision : MonoBehaviour
             explotsionParticle.Play();
 
             //ÉXÉRÉAâ¡éZ
-            ShareData.Instance.score = Score;
+            ShareData.Instance.score += Score;
         }
 
     }
