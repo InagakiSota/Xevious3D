@@ -1430,7 +1430,8 @@ MonoBehaviour:
   m_lifeTextTop: {fileID: 464521734}
   m_UI: {fileID: 488855158}
   m_lifeUI: {fileID: 127942669}
-  m_introBGM: {fileID: 8300000, guid: 56876024e8d39d84ba8e2a40a8c60998, type: 3}
+  m_introBGM: {fileID: 8300000, guid: c954ccf9734164d459f2e714bbce37c7, type: 3}
+  m_BGM: {fileID: 8300000, guid: 7cf9ce8563bedd04ba76c5454c8d0696, type: 3}
   m_1stScoreText: {fileID: 162930567}
   m_2ndScoreText: {fileID: 1801233535}
   m_3rdScoreText: {fileID: 675324986}
@@ -1445,7 +1446,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fe4826afb44dac44882ae51037732f3b, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.178
   m_Pitch: 1

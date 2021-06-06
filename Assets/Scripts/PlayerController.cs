@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
 	//ザッパーの色フラグ
 	bool m_zapperColorFlag = false;
 
+
 	// Start is called before the first frame update
 	void Start()
 	{

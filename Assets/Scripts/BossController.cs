@@ -67,7 +67,7 @@ public class BossController : MonoBehaviour
 			//€‚ñ‚Å‚¢‚éó‘Ô‚ÅƒXƒRƒA‰ÁZ
 			if (shotFlag == false && aliveFlag == false)
 			{
-				ShareData.Instance.score = getScore;
+				ShareData.Instance.score += getScore;
 			}
 
 			//Á‚·

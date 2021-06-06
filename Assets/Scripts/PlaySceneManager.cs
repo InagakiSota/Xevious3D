@@ -31,12 +31,14 @@ public class PlaySceneManager : MonoBehaviour
 	[SerializeField] GameObject m_lifeUI;
 
 	//経過時間
-	float m_totalTime;
+	private float m_totalTime;
 
 	//オーディオソース
 	private AudioSource m_audio;
 	//イントロのBGM
 	[SerializeField] AudioClip m_introBGM;
+	//BGM
+	[SerializeField] AudioClip m_BGM;
 
 	//1位のスコアテキスト
 	[SerializeField] Text m_1stScoreText;
@@ -48,6 +50,11 @@ public class PlaySceneManager : MonoBehaviour
 	//マニュアルのテキスト
 	[SerializeField] GameObject m_manual;
 
+	//ゲームオーバーフラグ
+	public static bool m_isGameOver;
+
+	//ランキングの描画タイマー
+	private float m_rankingDrawTimer;
 
 	// Start is called before the first frame update
 	void Start()
@@ -63,8 +70,11 @@ public class PlaySceneManager : MonoBehaviour
 
 		//UIを非表示にする
 		m_UI.SetActive(false);
+		m_manual.SetActive(false);
 
 		m_totalTime = 0.0f;
+
+		m_isGameOver = false;
 
 
 		//オーディオソースの取得
@@ -79,7 +89,7 @@ public class PlaySceneManager : MonoBehaviour
 	void Update()
 	{
 		//残機が無くなったらゲームオーバー
-		if(ShareData.Instance.life < 0)
+		if(m_isGameOver == true)
 		{
 			m_gameOverText.SetActive(true);
 			m_manual.SetActive(false);
@@ -103,11 +113,12 @@ public class PlaySceneManager : MonoBehaviour
 
 		}
 
-
+		//指定秒数後にUI等を描画
 		m_totalTime += Time.deltaTime;
 		if (m_totalTime >= TEXT_DESTROY_SECONDS && ShareData.Instance.life >= 0)
 		{
 			m_UI.SetActive(true);
+			m_manual.SetActive(true);
 		}
 
 		//テキストにスコアを反映
@@ -123,6 +134,13 @@ public class PlaySceneManager : MonoBehaviour
 
 		//残機数をテキストに反映
 		m_lifeTextTop.text = "x" + ShareData.Instance.life;
+
+
+		if(m_audio.isPlaying == false)
+		{
+			m_audio.loop = true;
+			m_audio.PlayOneShot(m_BGM);
+		}
 	}
 
 

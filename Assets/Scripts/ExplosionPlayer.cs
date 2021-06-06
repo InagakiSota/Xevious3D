@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ExplosionPlayer : MonoBehaviour
 {
+
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -22,6 +24,10 @@ public class ExplosionPlayer : MonoBehaviour
 		if (ShareData.Instance.life >= 0)
 		{
 			FadeManager.FadeOut("PlayScene");
+		}
+		else
+		{
+			PlaySceneManager.m_isGameOver = true;
 		}
 
 	}

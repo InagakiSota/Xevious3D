@@ -49,7 +49,7 @@ public class BossShotController : MonoBehaviour
 			//ŽžŠÔŒ¸‚ç‚·
 			nowShotTimer -= Time.deltaTime;
 
-			//‚O‚É‚È‚Á‚½
+			//0‚É‚È‚Á‚½
 			if (nowShotTimer <= 0.0f)
 			{
 				Vector3 shotPos = new Vector3(transform.position.x, 0.0f, transform.position.z);
