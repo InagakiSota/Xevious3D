@@ -83,33 +83,66 @@ public class PlaySceneManager : MonoBehaviour
 		if(m_audio.isPlaying == false)
 			m_audio.PlayOneShot(m_introBGM);
 
+		m_rankingDrawTimer = 0.0f;
+
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		//残機が無くなったらゲームオーバー
-		if(m_isGameOver == true)
+
+		//残機がなくなったら残機数のUIを消す
+		if(ShareData.Instance.life < 0)
 		{
+			m_lifeUI.SetActive(false);
+		}
+		//残機が無くなったらゲームオーバー
+		if (m_isGameOver == true)
+		{
+			//表示されるUIを切り替える
 			m_gameOverText.SetActive(true);
 			m_manual.SetActive(false);
 			m_UI.SetActive(true);
-			m_lifeUI.SetActive(false);
-
-			if (Input.anyKeyDown)
-			{
-				FadeManager.FadeOut("TitleScene");
-			}
 
 			//ハイスコア用
 			//ハイスコアかの判定をしハイスコアなら更新する
 			ShareData.Instance.UpdateHighScore();
 
 			//スコアをテキストに反映
-			m_1stScoreText.text = "1st　" + ShareData.Instance.ranking[0];
-			m_2ndScoreText.text = "2nd　" + ShareData.Instance.ranking[1];
-			m_3rdScoreText.text = "3rd　" + ShareData.Instance.ranking[2];
+			//3位から順に描画されるようにする
+			//ランキング描画用のタイマーを加算
+			m_rankingDrawTimer += Time.deltaTime;
 
+			//1位描画
+			if(m_rankingDrawTimer >= 0.5f * 3.0f)
+			{
+				//何かしらのキーが入力されたらタイトルに戻る
+				if (Input.anyKeyDown)
+				{
+					FadeManager.FadeOut("TitleScene");
+				}
+				
+				m_1stScoreText.text = "1st　" + ShareData.Instance.ranking[0];
+
+			}
+			//2位描画
+			else if(m_rankingDrawTimer >= 0.5f * 2.0f)
+			{
+				m_2ndScoreText.text = "2nd　" + ShareData.Instance.ranking[1];
+			}
+			//3位描画
+			else if(m_rankingDrawTimer >= 0.5f * 1.0f)
+			{
+				m_3rdScoreText.text = "3rd　" + ShareData.Instance.ranking[2];
+			}
+
+
+
+			//BGM停止
+			if (m_audio.isPlaying == true)
+			{
+				m_audio.Stop();
+			}
 
 		}
 

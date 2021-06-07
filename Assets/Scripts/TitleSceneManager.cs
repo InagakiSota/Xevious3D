@@ -90,10 +90,12 @@ public class TitleSceneManager : MonoBehaviour
 		{
 			if (Input.anyKeyDown)
 			{
+				//“_–Å‚ÌŠÔŠu‚ğ‘‚ß‚é
 				BLIND_INTERVAL = 0.1f;
 				FadeManager.FadeOut("PlayScene");
 				//SEÄ¶
-				m_audio.PlayOneShot(m_decideSound);
+				if(m_audio.isPlaying == false)
+					m_audio.PlayOneShot(m_decideSound);
 			}
 
 		}

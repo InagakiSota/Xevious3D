@@ -182,7 +182,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ed37943816471454e8c9db48f0db07fc, type: 3}
-    m_FontSize: 35
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 3
@@ -291,7 +291,7 @@ Transform:
   - {fileID: 396186987}
   - {fileID: 432735055}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &107166844
 GameObject:
@@ -1431,7 +1431,7 @@ MonoBehaviour:
   m_UI: {fileID: 488855158}
   m_lifeUI: {fileID: 127942669}
   m_introBGM: {fileID: 8300000, guid: c954ccf9734164d459f2e714bbce37c7, type: 3}
-  m_BGM: {fileID: 8300000, guid: 7cf9ce8563bedd04ba76c5454c8d0696, type: 3}
+  m_BGM: {fileID: 8300000, guid: b1980a5483d2fd747a3b634f330ac9f0, type: 3}
   m_1stScoreText: {fileID: 162930567}
   m_2ndScoreText: {fileID: 1801233535}
   m_3rdScoreText: {fileID: 675324986}
@@ -1448,7 +1448,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fe4826afb44dac44882ae51037732f3b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.178
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1610,6 +1610,7 @@ MonoBehaviour:
   m_bombSound: {fileID: 8300000, guid: 1077850e4da371441b4e4a35aed61902, type: 3}
   m_zapperSound: {fileID: 8300000, guid: 2fe442967c6312e4184fb1163792d59c, type: 3}
   m_blasterSound: {fileID: 8300000, guid: 9c361fbf5b08a6b44b8aebdfd96880c2, type: 3}
+  m_1upSE: {fileID: 8300000, guid: ccbf0c7a04439dd4e8ec80ff8f33dd6b, type: 3}
 --- !u!65 &851376291
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1934,7 +1935,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6946403873215497889, guid: e734d9c27c95d3141b8fe6d5e4e46e5a, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6946403873215497889, guid: e734d9c27c95d3141b8fe6d5e4e46e5a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3307,7 +3308,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2054024670
 PrefabInstance:
@@ -3318,7 +3319,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4846439274964758028, guid: 4ade22eec55f9104aa3cb4ef9396432a, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4846439274964758028, guid: 4ade22eec55f9104aa3cb4ef9396432a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3330,7 +3331,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4846439274964758028, guid: 4ade22eec55f9104aa3cb4ef9396432a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.99
+      value: 3.85
       objectReference: {fileID: 0}
     - target: {fileID: 4846439274964758028, guid: 4ade22eec55f9104aa3cb4ef9396432a, type: 3}
       propertyPath: m_LocalRotation.w

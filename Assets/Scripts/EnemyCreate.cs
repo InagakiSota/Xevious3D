@@ -213,7 +213,7 @@ public class EnemyCreate : MonoBehaviour
         if (timer[2] <= 0.0f)
         {
             //デバッグ段階で複数でたらだるいんで後でなんとかしよう
-            timer[2] = 999999999999999999999.0f;
+            timer[2] = 180.0f;
 
             //生成位置決めて生成
             Vector3 pos = new Vector3(0.0f, -5.0f, 32.0f);

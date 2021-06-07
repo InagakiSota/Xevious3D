@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] AudioClip m_zapperSound;
 	//ブラスター発射のサウンド
 	[SerializeField] AudioClip m_blasterSound;
+	//1up音
+	[SerializeField] AudioClip m_1upSE;
 
 
 	//移動量
@@ -99,7 +101,7 @@ public class PlayerController : MonoBehaviour
 		ZapperShot();
 		//ブラスターの発射
 		BlasterShot();
-		//Rayのテスト
+		//Ray
 		Ray();
 
 
@@ -138,7 +140,6 @@ public class PlayerController : MonoBehaviour
 		//左右入力
 		m_vel.x = Input.GetAxis("Horizontal");
 
-		Debug.Log(m_vel);
 
 		//左右移動に合わせて機体を傾ける
 		Vector3 axis = new Vector3(0.0f, 0.0f, 1.0f);
@@ -293,6 +294,7 @@ public class PlayerController : MonoBehaviour
 		if(collision.gameObject.tag == "SpecialFlag")
 		{
 			ShareData.Instance.life++;
+			m_audio.PlayOneShot(m_1upSE);
 		}
 	}
 
@@ -307,15 +309,18 @@ public class PlayerController : MonoBehaviour
 		float distance = 20.0f;
 		//rayのデバッグ描画
 		Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
-
-		if(Physics.Raycast(ray,out hit,distance))
+	
+		
+		if (Physics.Raycast(ray,out hit,distance))
 		{
+			Debug.Log("Ray:" + hit.collider.tag);
 			//床か敵にrayが当たったらターゲットをその上に描画
-			if(hit.collider.tag =="Plane" || hit.collider.tag == "Enemy")
+			if (hit.collider.tag =="Plane" || hit.collider.tag == "Enemy")
 			{
 				m_target.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
 				m_target3.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
 				m_target4.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
+
 
 				//エネミーを検知したらターゲットの画像を切り替える
 				if (hit.collider.tag == "Enemy")
@@ -330,7 +335,6 @@ public class PlayerController : MonoBehaviour
 
 				}
 			}
-
 		}
 	}
 }
