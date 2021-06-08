@@ -627,7 +627,7 @@ MonoBehaviour:
   speed: 10
   rotateSpeed: 1080
   life: 1
-  destroyPos: {x: 30, y: 0, z: 20}
+  destroyPos: {x: 50, y: 0, z: -50}
   getScore: 40
   m_explosionParticle: {fileID: 2238075384942627173, guid: 3344deda5e111d247a1a629bff9a6931, type: 3}
   m_bombSE: {fileID: 8300000, guid: 2339f929802dbbb4d9d059d012cfbbbb, type: 3}

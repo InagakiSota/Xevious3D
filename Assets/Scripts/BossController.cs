@@ -40,7 +40,7 @@ public class BossController : MonoBehaviour
 		//transform.position += new Vector3(0.0f, 0.0f, -speed);
 
 		//指定の位置まで行ったら行動開始
-		if ((int)transform.position.z >= 8)
+		if ((int)transform.position.z >= 0)
 		{
 			transform.position += new Vector3(0.0f, 0.0f, -speed) * Time.deltaTime;
 			shotFlag = true;
@@ -62,7 +62,7 @@ public class BossController : MonoBehaviour
 		}
 
 		//画面外行ったら消す
-		if (transform.position.z <= -20.0f || Mathf.Abs(transform.position.x) >= 30.0f)
+		if (transform.position.z <= -50.0f || Mathf.Abs(transform.position.x) >= 30.0f)
 		{
 			//死んでいる状態でスコア加算
 			if (shotFlag == false && aliveFlag == false)

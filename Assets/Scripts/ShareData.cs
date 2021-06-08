@@ -21,7 +21,6 @@ public class ShareData : MonoBehaviour
 	//ファイル名
 	private string fileName = "hiScore.txt";
 
-
 	public int score = 0;//スコア
 
 	//ハイスコア
@@ -44,11 +43,15 @@ public class ShareData : MonoBehaviour
 	// Start is called before the first frame update
 	public void Start()
 	{
+		for(int i = 0; i< RANKING_NUM; i++)
+		{
+			ranking[i] = 0;
+		}
 		//ハイスコア用===========================================
 		FinishUpdateHighScore = false;
-		path = Application.dataPath + "/ScoreData/" + fileName;
+		path = Application.dataPath + "/StreamingAssets/ScoreData/" + fileName;
 		ShareData.Instance.ReadFile();
-		//ここまで===================================================
+		//ここまで===============================================
 	}
 
 	// Update is called once per frame

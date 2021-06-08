@@ -179,7 +179,7 @@ public class EnemyCreate : MonoBehaviour
                 else
                 {
                     //êŠŒˆ‚ß‚Ä¶¬
-                    Vector3 pos = new Vector3(Random.Range(-20.0f, 20.0f), 0.0f, 19.0f);
+                    Vector3 pos = new Vector3(Random.Range(-20.0f, 20.0f), 0.0f, 30.0f);
                         if (player != null)
                             Instantiate(flyingBoard, pos, Quaternion.identity);
                     
@@ -216,7 +216,7 @@ public class EnemyCreate : MonoBehaviour
             timer[2] = 180.0f;
 
             //¶¬ˆÊ’uŒˆ‚ß‚Ä¶¬
-            Vector3 pos = new Vector3(0.0f, -5.0f, 32.0f);
+            Vector3 pos = new Vector3(0.0f, -4.0f, 32.0f);
             //ƒ‚ƒfƒ‹Î‚ß‚É‚È‚Á‚Ä‚½‚©‚ç‚¢‚¢Š´‚¶‚É’²®‚µ‚Ü‚µ‚½B
             Instantiate(boss, pos, Quaternion.Euler(0.0f, -68.563f, 0.0f));
         }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class FoundationMove : MonoBehaviour
 {
     //狙うオブジェクト
-    [SerializeField]
     GameObject TargetObject;
 
     //砲身オブジェクト
@@ -16,7 +15,7 @@ public class FoundationMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        TargetObject = GameObject.Find("Player");
     }
 
     // Update is called once per frame

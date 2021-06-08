@@ -2,23 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BatteryBulletCreate : MonoBehaviour
 {
     //íeÇÃê∂ê¨ä‘äu
     [SerializeField]
-    int CreateBulletInterval = 180;
+    float CreateBulletInterval = 180;
 
     //íeÇÃê∂ê¨ä‘äuÇÃÉJÉEÉìÉg
-    private float m_BulletIntervalCount = 0;
+    private float  m_BulletIntervalCount = 0;
 
     //î≠ê∂Ç≥ÇπÇÈíeÇÃPrefab
     [SerializeField]
     GameObject BatteryBulletPrefab;
 
+    bool shotFlag = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -28,10 +30,31 @@ public class BatteryBulletCreate : MonoBehaviour
         if (m_BulletIntervalCount >= CreateBulletInterval)
         {
             m_BulletIntervalCount = 0;
-            //íeÇÃê∂ê¨
-            Instantiate(BatteryBulletPrefab, this.transform.position, this.transform.rotation);
+
+            if (shotFlag == true)
+            {
+                //íeÇÃê∂ê¨
+                Instantiate(BatteryBulletPrefab, this.transform.position, this.transform.rotation);
+            }
+            
         }
         //íeÇÃÉJÉEÉìÉgÇêiÇﬂÇÈ
-        m_BulletIntervalCount+= Time.deltaTime;
+        m_BulletIntervalCount += Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            shotFlag = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            shotFlag = false;
+        }
     }
 }

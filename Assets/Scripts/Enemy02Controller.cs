@@ -146,7 +146,7 @@ public class Enemy02Controller : MonoBehaviour
         }
 
         //‰æ–ÊŠO‚Ü‚Ås‚Á‚½‚çÁ‹
-        if (transform.position.z <= -11.0f || Mathf.Abs(transform.position.x) >= 30.0f)
+        if (transform.position.z <= destroyPos.z || Mathf.Abs(transform.position.x) >= destroyPos.x)
         {
             Destroy(this.gameObject);
         }

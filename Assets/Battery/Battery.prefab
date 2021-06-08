@@ -277,7 +277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed925765b4d2dd44b284d1abccaaeb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetObject: {fileID: 0}
   BarrelObject: {fileID: 4344915683413803664}
 --- !u!1 &4344915683413803664
 GameObject:
@@ -323,7 +322,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f212c66926d7e49b65acc9c3eb8d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetObject: {fileID: 0}
   RotateSpeed: 2.5
 --- !u!1 &4344915683677866715
 GameObject:

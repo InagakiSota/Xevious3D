@@ -110,5 +110,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   rotateSpeed: -360
-  destroyPos: {x: 30, y: 20, z: -20}
+  destroyPos: {x: 30, y: 20, z: -50}
   m_hitSE: {fileID: 8300000, guid: d079e8e27a369b345a70e1f6b6d53edd, type: 3}

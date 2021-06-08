@@ -10,7 +10,7 @@ public class BatteryBullet : MonoBehaviour
 
     //’e‚ÌÁ–Å‚Ü‚Å‚ÌŠÔ
     [SerializeField]
-    float BulletDisappearTime = 1200;
+    float BulletDisappearTime = 6;
 
     //’e‚ÌŠp“x
     private Quaternion m_BulletRotate;

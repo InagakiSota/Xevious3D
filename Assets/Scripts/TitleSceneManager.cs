@@ -62,9 +62,9 @@ public class TitleSceneManager : MonoBehaviour
 		ShareData.Instance.life = 2;
 
 		//UIの初期座標設定
-		m_UI.transform.position = new Vector3(m_UI.transform.position.x, m_startPosY, m_UI.transform.position.z);
+		m_UI.transform.localPosition = new Vector3(0.0f, m_startPosY, m_UI.transform.position.z);
 		//UIの座標取得
-		m_UIPos = m_UI.transform.position;
+		m_UIPos = m_UI.transform.localPosition;
 
 		m_audio = GetComponent<AudioSource>();
 
@@ -77,13 +77,13 @@ public class TitleSceneManager : MonoBehaviour
 		//ハイスコアのテキストを反映
 		m_hiScoreText.text = ShareData.Instance.hiScore.ToString();
 
-		if(m_UIPos.y < 210.0f)
+		if(m_UIPos.y < -20.0f)
 		{
 			m_UIPos.y += 100.0f * Time.deltaTime;
 
 			if(Input.anyKeyDown)
 			{
-				m_UIPos.y = 210.0f;
+				m_UIPos.y = -20.0f;
 			}
 		}
 		else
@@ -97,9 +97,21 @@ public class TitleSceneManager : MonoBehaviour
 				if(m_audio.isPlaying == false)
 					m_audio.PlayOneShot(m_decideSound);
 			}
+			else if(Input.GetKeyDown(KeyCode.Escape))
+			{
+				//ゲーム終了
+				#if UNITY_EDITOR
+								UnityEditor.EditorApplication.isPlaying = false;
+				#elif UNITY_STANDALONE
+					  UnityEngine.Application.Quit();
+				#endif
+
+			}
 
 		}
-		m_UI.transform.position = m_UIPos;
+		m_UI.transform.localPosition = m_UIPos;
+
+		Debug.Log("Pos:" + m_UI.transform.localPosition);
 
 		//点滅のタイマー加算
 		m_blindTimer += Time.deltaTime;

@@ -65,9 +65,9 @@ public class PlayerController : MonoBehaviour
 
 
 	//移動量
-	Vector3 m_vel;
+	private Vector3 m_vel;
 	//座標
-	Vector3 m_pos;
+	private Vector3 m_pos;
 	//ブラスターの発射タイマー
 	float m_blasterShotTimer;
 	//ザッパーの発射タイマー
@@ -78,6 +78,11 @@ public class PlayerController : MonoBehaviour
 
 	//ザッパーの色フラグ
 	bool m_zapperColorFlag = false;
+
+	RaycastHit m_hit;
+
+	//地上のターゲットの座標
+	private Vector3 m_targetPos;
 
 
 	// Start is called before the first frame update
@@ -90,6 +95,10 @@ public class PlayerController : MonoBehaviour
 		m_audio = GameObject.Find("Audio Source").GetComponent<AudioSource>();
 
 		m_zapperAudio = this.GetComponent<AudioSource>();
+
+		//ハイスコア用
+		//外部ファイルの読み込み
+		ShareData.Instance.Start();
 	}
 
 	// Update is called once per frame
@@ -242,8 +251,9 @@ public class PlayerController : MonoBehaviour
 		GameObject blasterBullet = GameObject.Find("BlasterPrefab(Clone)");
 
 		//X入力かつ他のブラスター弾がなければ発射　
-		if (Input.GetButtonDown("Blaster") && blasterBullet == null)
+		if (Input.GetButtonDown("Blaster") && blasterBullet == null && m_hit.collider.tag != "Enemy")
 		{
+
 			//ブラスターを生成
 			GameObject blaster = (GameObject)Instantiate(m_blasterPrefab, m_blasterMuzzle.position, Quaternion.identity);
 			//前方下に力を加える
@@ -257,6 +267,25 @@ public class PlayerController : MonoBehaviour
 			m_audio.PlayOneShot(m_blasterSound);
 			//m_blasterShotTimer = BLASTER_SHOT_INTERVAL;
 		}
+
+		//ターゲット
+		else if (Input.GetButtonDown("Blaster") && blasterBullet == null && m_hit.collider.tag == "Enemy")
+		{
+			//ブラスターを生成
+			GameObject blaster = (GameObject)Instantiate(m_blasterPrefab, m_blasterMuzzle.position, Quaternion.identity);
+			//前方下に力を加える
+			m_targetPos = m_hit.point;
+			Vector3 vel =  m_targetPos - this.transform.position;
+			vel.Normalize();
+			blaster.GetComponent<Rigidbody>().AddForce(vel * BLASTER_SHOT_SPEED, ForceMode.Impulse);
+			Debug.Log(vel);
+			//発射位置にターゲット2を置く
+			m_target2.transform.position = m_target.transform.position;
+
+			m_audio.PlayOneShot(m_blasterSound);
+
+		}
+
 		else
 		{
 			//普段はターゲット2,3を非表示
@@ -303,27 +332,26 @@ public class PlayerController : MonoBehaviour
 		//ray作成
 		Ray ray = new Ray(transform.position, new Vector3(0.0f, -1.0f, 1.0f));
 
-		RaycastHit hit;
 
 		//rayを飛ばす距離
-		float distance = 20.0f;
+		float distance = 100.0f;
 		//rayのデバッグ描画
 		Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
 	
 		
-		if (Physics.Raycast(ray,out hit,distance))
+		if (Physics.Raycast(ray,out m_hit, distance))
 		{
-			Debug.Log("Ray:" + hit.collider.tag);
+			Debug.Log("Ray:" + m_hit.collider.tag);
 			//床か敵にrayが当たったらターゲットをその上に描画
-			if (hit.collider.tag =="Plane" || hit.collider.tag == "Enemy")
+			if (m_hit.collider.tag =="Plane" || m_hit.collider.tag == "Enemy")
 			{
-				m_target.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
-				m_target3.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
-				m_target4.transform.position = new Vector3(hit.point.x, hit.point.y + 1.0f, hit.point.z - 1.0f);
+				m_target.transform.position = new Vector3(m_hit.point.x, m_hit.point.y + 1.0f, m_hit.point.z - 1.0f);
+				m_target3.transform.position = new Vector3(m_hit.point.x, m_hit.point.y + 1.0f, m_hit.point.z - 1.0f);
+				m_target4.transform.position = new Vector3(m_hit.point.x, m_hit.point.y + 1.0f, m_hit.point.z - 1.0f);
 
 
 				//エネミーを検知したらターゲットの画像を切り替える
-				if (hit.collider.tag == "Enemy")
+				if (m_hit.collider.tag == "Enemy")
 				{
 					m_target.SetActive(false);
 					m_target4.SetActive(true);

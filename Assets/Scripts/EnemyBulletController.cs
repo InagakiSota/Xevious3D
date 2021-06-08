@@ -32,7 +32,7 @@ public class EnemyBulletController : MonoBehaviour
         transform.position += targetVector * speed * Time.deltaTime;
 
         //âÊñ äOÇ¢Ç¡ÇΩÇÁè¡ãé
-        if (transform.position.z <= -20.0f || Mathf.Abs(transform.position.x) >= 50.0f)
+        if (transform.position.z <= -50.0f || Mathf.Abs(transform.position.x) >= 50.0f)
         {
             Destroy(this.gameObject);
         }

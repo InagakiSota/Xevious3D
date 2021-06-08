@@ -19,7 +19,7 @@ public class BlasterScript : MonoBehaviour
 	private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.tag != "Player" &&
-			collision.gameObject.tag != "EnemyBullet")
+			collision.gameObject.tag != "PlayerBullet")
 			Destroy(gameObject);
 	}
 }

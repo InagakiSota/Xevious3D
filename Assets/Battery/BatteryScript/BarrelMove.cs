@@ -5,7 +5,6 @@ using UnityEngine;
 public class BarrelMove : MonoBehaviour
 {
     //狙うオブジェクト
-    [SerializeField]
     GameObject TargetObject;
 
     //回転速度
@@ -16,7 +15,7 @@ public class BarrelMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        TargetObject = GameObject.Find("Player");
     }
 
     // Update is called once per frame
