@@ -63,7 +63,6 @@ public class PlayerController : MonoBehaviour
 	//1up音
 	[SerializeField] AudioClip m_1upSE;
 
-
 	//移動量
 	private Vector3 m_vel;
 	//座標
@@ -110,10 +109,10 @@ public class PlayerController : MonoBehaviour
 		ZapperShot();
 		//ブラスターの発射
 		BlasterShot();
-		//Ray
-		Ray();
+		//ターゲットの処理
+		Target();
 
-
+		//死亡フラグが立ったら
 		if(m_isDeath == true)
 		{
 			//爆発音再生
@@ -129,13 +128,13 @@ public class PlayerController : MonoBehaviour
 			var explotsionParticle = exlotion.GetComponent<ParticleSystem>();
 			explotsionParticle.Play();
 
-
 			//ターゲットを消す
 			Destroy(m_target);
 			Destroy(m_target2);
 			Destroy(m_target3);
 			Destroy(m_target4);
 
+			//死亡フラグを消す
 			m_isDeath = false;
 		}
 
@@ -268,7 +267,7 @@ public class PlayerController : MonoBehaviour
 			//m_blasterShotTimer = BLASTER_SHOT_INTERVAL;
 		}
 
-		//ターゲット
+		//ターゲット上に敵がいる状態で発射したら誘導
 		else if (Input.GetButtonDown("Blaster") && blasterBullet == null && m_hit.collider.tag == "Enemy")
 		{
 			//ブラスターを生成
@@ -285,7 +284,6 @@ public class PlayerController : MonoBehaviour
 			m_audio.PlayOneShot(m_blasterSound);
 
 		}
-
 		else
 		{
 			//普段はターゲット2,3を非表示
@@ -315,6 +313,7 @@ public class PlayerController : MonoBehaviour
 		//敵弾に当たったら消滅
 		if (collision.gameObject.tag == "EnemyBullet" || collision.gameObject.tag == "Enemy" && m_isDeath == false)
 		{
+			//死亡フラグを立てる
 			m_isDeath = true;
 
 		}
@@ -323,11 +322,14 @@ public class PlayerController : MonoBehaviour
 		if(collision.gameObject.tag == "SpecialFlag")
 		{
 			ShareData.Instance.life++;
+			//SE再生
 			m_audio.PlayOneShot(m_1upSE);
 		}
 	}
 
-	void Ray()
+
+	//ターゲットの処理
+	void Target()
 	{
 		//ray作成
 		Ray ray = new Ray(transform.position, new Vector3(0.0f, -1.0f, 1.0f));
@@ -358,7 +360,6 @@ public class PlayerController : MonoBehaviour
 				}
 				else
 				{
-					//m_target.SetActive(true);
 					m_target4.SetActive(false);
 
 				}

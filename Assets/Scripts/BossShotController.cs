@@ -72,7 +72,6 @@ public class BossShotController : MonoBehaviour
 
 			//‚±‚Ìƒp[ƒc‚ÍÁ‚·
 			Destroy(this.gameObject);
-
 		}
 	}
 

@@ -66,16 +66,16 @@ public class PlaySceneManager : MonoBehaviour
 		//ゲーム開始時のテキストを指定秒数後に消す
 		Destroy(m_startText, TEXT_DESTROY_SECONDS);
 		
-		m_gameOverText.SetActive(false);
 
 		//UIを非表示にする
 		m_UI.SetActive(false);
 		m_manual.SetActive(false);
+		m_gameOverText.SetActive(false);
 
+		//各変数の初期化
 		m_totalTime = 0.0f;
-
 		m_isGameOver = false;
-
+		m_rankingDrawTimer = 0.0f;
 
 		//オーディオソースの取得
 		m_audio = this.GetComponent<AudioSource>();
@@ -83,7 +83,6 @@ public class PlaySceneManager : MonoBehaviour
 		if(m_audio.isPlaying == false)
 			m_audio.PlayOneShot(m_introBGM);
 
-		m_rankingDrawTimer = 0.0f;
 
 	}
 
@@ -168,7 +167,7 @@ public class PlaySceneManager : MonoBehaviour
 		//残機数をテキストに反映
 		m_lifeTextTop.text = "x" + ShareData.Instance.life;
 
-
+		//イントロの再生が終わったらBGMをループで再生する
 		if(m_audio.isPlaying == false)
 		{
 			m_audio.loop = true;

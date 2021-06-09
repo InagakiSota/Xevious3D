@@ -25,6 +25,7 @@ public class ExplosionPlayer : MonoBehaviour
 		{
 			FadeManager.FadeOut("PlayScene");
 		}
+		//残機数が0ならゲームオーバーのフラグを立てる
 		else
 		{
 			PlaySceneManager.m_isGameOver = true;

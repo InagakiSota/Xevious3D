@@ -36,6 +36,12 @@ public class TitleSceneManager : MonoBehaviour
 	//点滅のインターバル
 	[SerializeField] float BLIND_INTERVAL;
 
+	//UIが停止するY座標
+	[SerializeField] float UI_STOP_POS_Y = -20.0f;
+
+	//UIが移動するスピード
+	[SerializeField] float UI_MOVE_SPEED = 100.0f;
+
 	//UIの座標
 	Vector3 m_UIPos;
 	
@@ -77,17 +83,20 @@ public class TitleSceneManager : MonoBehaviour
 		//ハイスコアのテキストを反映
 		m_hiScoreText.text = ShareData.Instance.hiScore.ToString();
 
-		if(m_UIPos.y < -20.0f)
+		//UIを指定座標まで移動させる
+		if(m_UIPos.y < UI_STOP_POS_Y)
 		{
-			m_UIPos.y += 100.0f * Time.deltaTime;
+			m_UIPos.y += UI_MOVE_SPEED * Time.deltaTime;
 
+			//なにかしらのキーが入力されたらUIを指定座標に移動させる
 			if(Input.anyKeyDown)
 			{
-				m_UIPos.y = -20.0f;
+				m_UIPos.y = UI_STOP_POS_Y;
 			}
 		}
 		else
 		{
+			//UIの移動が完了した状態でなにかしらのキー入力でプレイシーンに遷移
 			if (Input.anyKeyDown)
 			{
 				//点滅の間隔を早める
@@ -97,27 +106,20 @@ public class TitleSceneManager : MonoBehaviour
 				if(m_audio.isPlaying == false)
 					m_audio.PlayOneShot(m_decideSound);
 			}
-			else if(Input.GetKeyDown(KeyCode.Escape))
-			{
-				//ゲーム終了
-				#if UNITY_EDITOR
-								UnityEditor.EditorApplication.isPlaying = false;
-				#elif UNITY_STANDALONE
-					  UnityEngine.Application.Quit();
-				#endif
-
-			}
-
 		}
+
+		//座標を代入
 		m_UI.transform.localPosition = m_UIPos;
 
-		Debug.Log("Pos:" + m_UI.transform.localPosition);
 
 		//点滅のタイマー加算
 		m_blindTimer += Time.deltaTime;
+		//一定間隔で文字の点滅を繰り返す
 		if(m_blindTimer >= BLIND_INTERVAL)
 		{
+			//点滅のフラグを反転させる
 			m_isBlind = !m_isBlind;
+			//点滅のタイマーリセット
 			m_blindTimer = 0.0f;
 		}
 		m_pushButtonText.SetActive(m_isBlind);

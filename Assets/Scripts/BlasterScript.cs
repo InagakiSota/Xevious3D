@@ -18,6 +18,7 @@ public class BlasterScript : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
+		//プレイヤーかプレイヤーの弾以外に当たったら消滅
 		if (collision.gameObject.tag != "Player" &&
 			collision.gameObject.tag != "PlayerBullet")
 			Destroy(gameObject);

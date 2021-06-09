@@ -47,6 +47,7 @@ public class FlyingBoardController : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
+		//ƒvƒŒƒCƒ„[‚Ì’e‚ª“–‚½‚Á‚½‚çSE‚ğÄ¶‚·‚é
 		if(collision.gameObject.tag == "PlayerBullet")
 		{
 			m_audio.PlayOneShot(m_hitSE);
